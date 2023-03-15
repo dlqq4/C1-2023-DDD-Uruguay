@@ -1,11 +1,11 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-
-
 import { ClienteMySqlService, CompraMySqlService, CursoMySqlService } from "./services";
 import { ClienteRepository, CompraRepository, CuponRepository, CursoRepository, MembershipRepository, PlanRepository } from "./repositories";
 import { TypeOrmMySqlConfigService } from "./configs";
 import { ClienteMySqlEntity, CursoMySqlEntity, PlanMySqlEntity, CuponMySqlEntity, CompraMySqlEntity, MembershipMySqlEntity } from "./entities";
+import { MembershipMySqlService } from "./services/membershipMySql.service";
+import { PlanMySqlService } from "./services/planMySql.service";
 
 
 @Module({
@@ -39,10 +39,10 @@ import { ClienteMySqlEntity, CursoMySqlEntity, PlanMySqlEntity, CuponMySqlEntity
        //CuponMySqlService,
         CuponRepository,
 
-        //MembershipMySqlService,
+        MembershipMySqlService,
         MembershipRepository,
 
-        //PlanMySqlService,
+        PlanMySqlService,
         PlanRepository,
 
     ],
@@ -62,10 +62,10 @@ import { ClienteMySqlEntity, CursoMySqlEntity, PlanMySqlEntity, CuponMySqlEntity
        //CuponMySqlService,
         CuponRepository,
 
-        //MembershipMySqlService,
+        MembershipMySqlService,
         MembershipRepository,
 
-        //PlanMySqlService,
+        PlanMySqlService,
         PlanRepository,
     ]
 })

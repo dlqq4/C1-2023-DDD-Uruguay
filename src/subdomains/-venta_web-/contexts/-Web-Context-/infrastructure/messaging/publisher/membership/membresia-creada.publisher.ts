@@ -8,7 +8,7 @@ import { MembershipMySqlEntity } from "../../../persistence";
 
 @Injectable()
 export class CreateMembershipPublisher extends MembershipCreadaEventPublisher {
-    constructor(@Inject('CONSULTORY_CONTEXT') private readonly proxy: ClientProxy) {
+    constructor(@Inject('VENTAS_WEB_CONTEXT') private readonly proxy: ClientProxy) {
         super(proxy as unknown as IEventPublisher);
     }
 

@@ -8,7 +8,7 @@ import { lastValueFrom } from "rxjs";
 
 @Injectable()
 export class UpdatePhonePublisher extends UpdatePhoneEventPublisher {
-    constructor(@Inject('CONSULTORY_CONTEXT') private readonly proxy: ClientProxy) {
+    constructor(@Inject('VENTAS_WEB_CONTEXT') private readonly proxy: ClientProxy) {
         super(proxy as unknown as IEventPublisher);
     }
 

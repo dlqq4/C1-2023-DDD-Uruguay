@@ -7,7 +7,7 @@ import { ClientProxy } from "@nestjs/microservices";
 
 @Injectable()
 export class CreateCompraPublisher extends CompraCreadaEventPublisher {
-    constructor(@Inject('CONSULTORY_CONTEXT') private readonly proxy: ClientProxy) {
+    constructor(@Inject('VENTAS_WEB_CONTEXT') private readonly proxy: ClientProxy) {
         super(proxy as unknown as IEventPublisher);
     }
 
