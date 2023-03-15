@@ -1,9 +1,7 @@
 import { ValueObjectErrorHandler } from "src/libs/sofka/bases/value-object-error-handler.base";
 import { ICreateClienteMethod } from "../../../domain/interfaces/commands/cliente/createCliente.command";
-import { IClienteCreadoResponse } from "../../../domain/interfaces/responses/membership";
 import { IUseCase } from "src/libs/sofka/interface/use-case.interface";
 import { CompraAggregate } from "../../../domain/aggregates";
-import { ICompraService } from "../../../domain/services/compra.service";
 import { ClienteCreadoEventPublisher } from "../../../domain/events/publishers/compra/cliente-creado.event-publisher";
 import { ClienteDomainEntity } from "../../../domain/entities/common-entities/cliente.domain-entity";
 import { EmailValueObject } from "../../../domain/value-objects/cliente/email/email.value-object";
@@ -12,6 +10,7 @@ import { FullnameValueObject } from "../../../domain/value-objects/common-value-
 import { IClienteDomainEntityInterface } from "../../../domain/entities/interfaces/i-cliente.domain-entity.interface";
 import { ValueObjectException } from "src/libs/sofka/exceptions/object-value.exception";
 import { IClienteService } from "../../../domain/services/cliente.service";
+import { IClienteCreadoResponse } from "../../../domain/interfaces/responses/clienteCreado.response";
 
 
 export class CreateClienteUseCase<

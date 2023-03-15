@@ -4,6 +4,4 @@ export * from './createCompra.command';
 export * from './createCurso.command';
 export * from './cupon';
 export * from './curso';
-export * from './updateClientePhone.command';
-export * from './updateCursoCosto.command';
-export * from './updatePorcentajeCupon.command';
+

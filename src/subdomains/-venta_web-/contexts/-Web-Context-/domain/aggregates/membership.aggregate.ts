@@ -1,5 +1,5 @@
 import { IUpdatePhoneMethod } from "../interfaces/commands/cliente/updatePhone.command";
-import { IUpdateCostoMethod } from "../interfaces/commands/compra/curso/updateCosto.command";
+
 import { IUpdateNombreMethod } from "../interfaces/commands/membership/plan/updateNombre.command";
 import { ClienteDomainEntity, PlanDomainEntity } from "../entities";
 import { MembershipDomainEntity } from "../entities/membership/membership.domain-entity";
@@ -18,6 +18,7 @@ import { UpdateCostoPlanEventPublisher } from "../events/publishers/membership/p
 import { AggregateRootException } from "src/libs/sofka/exceptions/aggregate-root.exception";
 import { ClienteConseguidoEventPublisher } from "../events/publishers/compra/cliente/cliente-conseguido.event-publisher";
 import { PlanConseguidoEventPublisher } from "../events/publishers/membership/plan/plan-conseguido.event-publisher";
+import { IUpdateCostoMethod } from "../interfaces/commands/membership/plan/updatecosto.command";
 
 
 export class MembershipAggregate implements IClienteService, IPlanService, IMembershipService {

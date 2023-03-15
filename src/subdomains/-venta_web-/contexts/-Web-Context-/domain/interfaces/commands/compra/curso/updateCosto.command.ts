@@ -1,7 +1,7 @@
 
 export interface IUpdateCostoMethod {
 
-    idCurso: string;
-    costoCurso: number;
+    idCurso?: string;
+    costoCurso?: number;
     
 }

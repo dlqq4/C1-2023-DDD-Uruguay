@@ -21,27 +21,31 @@ import { CreateClienteUseCase } from '../../application/use-cases/membership/cre
 import { IMembershipService } from '../../domain/services/membership.service';
 import { ICreatePlanCommand } from '../utils/commands/membership/createPlan.command';
 import { CreatePlanUseCase } from '../../application/use-cases/membership/create-plan.use-case';
-import { IPlanService } from '../../domain/services/plan.service';
 import { UpdateClientPhoneUseCase } from '../../application/use-cases/membership/update-client-phone.use-case';
 import { ICreateMembershipCommand } from '../utils/commands/membership/createMembership.command';
 import { CreateMembershipUseCase } from '../../application/use-cases/membership/create-membership.use-case';
 import { CreateMembershipPublisher, CreatePlanPublisher } from '../messaging/publisher/membership';
 import { CreateClientePublisher, ObtenerClientePublisher, UpdatePhonePublisher } from '../messaging/publisher';
+import { MembershipService } from '../persistence/services/membership.service';
+import { ClienteService } from '../persistence/services/cliente.service';
+import { PlanService } from '../persistence/services/plan.service';
 
 @Controller('membership')
 export class MembershipController {
 
 
     constructor(
-        private readonly membershipService: IMembershipService,
+        private readonly membershipService: MembershipService,
+        private readonly clienteService: ClienteService,
+        private readonly planService: PlanService,
+
+
         private readonly membershipCreadaPublisher : CreateMembershipPublisher,
 
-        private readonly clienteService: IClienteService,
         private readonly clienteCreadoPublisher: CreateClientePublisher,
         private readonly updatePhonePublisher: UpdatePhonePublisher ,
         private readonly clienteConseguidoPublisher: ObtenerClientePublisher ,
 
-        private readonly planService: IPlanService,
         private readonly planCreadoPublisher: CreatePlanPublisher
 
         

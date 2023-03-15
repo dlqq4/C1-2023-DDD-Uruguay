@@ -1,10 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ClientsModule } from '@nestjs/microservices';
 import { Transport } from '@nestjs/microservices/enums';
-import { MembershipController } from '../controllers/membership.controller';
-import { CompraController } from '../controllers/compra.controller';
 import { CreateClientePublisher } from './publisher/cliente/cliente-creado.publisher';
 import { CreateCompraPublisher, CreateCursoPublisher, CreateMembershipPublisher, CreatePlanPublisher, ObtenerClientePublisher, ObtenerCursoPublisher, UpdateCostoPublisher, UpdatePhonePublisher } from './publisher';
+import { GlobalControllerEvent } from './subscribers/globalEvent.subscriber';
 
 
 
@@ -43,7 +42,7 @@ import { CreateCompraPublisher, CreateCursoPublisher, CreateMembershipPublisher,
             },
         ]),
     ],
-    controllers: [MembershipController, CompraController],
+    controllers: [GlobalControllerEvent],
     providers: [
        
         CreateCompraPublisher,

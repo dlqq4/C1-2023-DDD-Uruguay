@@ -1,8 +1,9 @@
-import { IsString } from "class-validator/types/decorator/decorators";
-import { ICreatePlaneMethod } from "../../../../domain/interfaces/commands/membership";
+import { IsNumber, IsString } from "class-validator";
+import { ICreatePlanMethod } from "../../../../domain/interfaces/commands/membership";
 
 
-export class ICreatePlanCommand implements ICreatePlaneMethod{
+
+export class ICreatePlanCommand implements ICreatePlanMethod{
 
     
     @IsString()
@@ -11,13 +12,13 @@ export class ICreatePlanCommand implements ICreatePlaneMethod{
     @IsString()
     nombrePlan: string;
 
-    @IsString()
+    @IsNumber()
     dateInicioPlan: number;
 
-    @IsString()
+    @IsNumber()
     dateFinPlan: number;
 
-    @IsString()
+    @IsNumber()
     costoPlan: number;
                      
 }

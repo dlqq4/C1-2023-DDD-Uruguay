@@ -1,4 +1,4 @@
-import { Controller, Module } from "@nestjs/common";
+import {  Module } from "@nestjs/common";
 import { PersistenceModule } from './persistence/persistence.module';
 import { CompraController, MembershipController } from "./controllers";
 import { MessagingModule } from "./messaging/messaging.module";

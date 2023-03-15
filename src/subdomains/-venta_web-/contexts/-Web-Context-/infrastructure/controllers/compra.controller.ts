@@ -3,7 +3,7 @@ import { CreateClienteCommand } from '../utils/commands/createCliente.command';
 import { CreateClienteUseCase, CreateCompraUseCase, CreateCursoUseCase, ObtenerClienteUseCase, ObtenerCursoUseCase, UpdateClientPhoneUseCase, UpdateCursoCostoUseCase } from '../../application/use-cases/compra';
 import { ICompraService } from '../../domain/services/compra.service';
 import { ICreateCompraCommand } from '../utils/commands/compra/createCompra.command';
-import { IClienteService } from '../../domain/services/cliente.service';
+
 import { ICursoService } from '../../domain/services/curso.service';
 import { ICreateCursoCommand } from '../utils/commands/compra/createCurso.command';
 import { IUpdatePhoneCommand } from '../utils/commands/updatePhone.command';
@@ -12,20 +12,29 @@ import { IObtenerCursoCommand } from '../utils/commands/compra/curso/obtenerCurs
 import { IObtenerClienteCommand } from '../utils/commands/ObtenerCliente.command';
 import { CreateClientePublisher, CreateCompraPublisher, CreateCursoPublisher, ObtenerClientePublisher, ObtenerCursoPublisher, UpdateCostoPublisher, UpdatePhonePublisher } from '../messaging/publisher';
 
+import { CompraService } from '../persistence/services/compra.service';
+import { CursoService } from '../persistence/services/curso.service';
+import { ClienteService } from '../persistence/services/cliente.service';
+
+
 @Controller('compra') 
 export class CompraController {
 
 
     constructor(
-        private readonly compraService: ICompraService,
-        private readonly compraCreadaPublisher : CreateCompraPublisher,
 
-        private readonly clienteService: IClienteService,
+        private readonly clienteService: ClienteService,
+        private readonly compraService: CompraService,
+        private readonly cursoService: CursoService,
+
+
+        
+        private readonly compraCreadaPublisher : CreateCompraPublisher,
+        
         private readonly clienteCreadoPublisher: CreateClientePublisher,
         private readonly updatePhonePublisher: UpdatePhonePublisher,
         private readonly clienteConseguidoPublisher: ObtenerClientePublisher,
 
-        private readonly cursoService: ICursoService,
         private readonly cursoCreadoPublisher: CreateCursoPublisher,
         private readonly updateCostoCursoPublisher: UpdateCostoPublisher,
         private readonly cursoConseguidoPublisher: ObtenerCursoPublisher

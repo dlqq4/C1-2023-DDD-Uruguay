@@ -1,4 +1,5 @@
-import { IsString } from "class-validator/types/decorator/decorators";
+
+import { IsNumber, IsString } from "class-validator";
 import { ICreateCursoMethod } from "../../../../domain/interfaces";
 
 
@@ -13,7 +14,7 @@ export class ICreateCursoCommand implements ICreateCursoMethod{
     @IsString()
     nombreTeacher: string;
 
-    @IsString()
+    @IsNumber()
     costoCurso: number;
 
     //@IsUUID()
