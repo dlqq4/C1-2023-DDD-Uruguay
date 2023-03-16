@@ -110,11 +110,13 @@ export class CompraController {
     }
 
 
-    @Post('/update-costo-curso')
+    @Put('/update-costo-curso')
     async updateCostoCurso(@Body() command: IUpdateCostoCommand ) {
         const useCase = new UpdateCursoCostoUseCase(
             this.cursoService,
             this.updateCostoCursoPublisher,
+            this.cursoConseguidoPublisher,
+
         );
         return await useCase.execute(command);
     }

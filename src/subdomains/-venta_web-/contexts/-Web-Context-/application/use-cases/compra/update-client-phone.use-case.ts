@@ -71,11 +71,10 @@ export class UpdateClientPhoneUseCase<
         
         const respuestaCliente = await getCliente.execute({ idCliente: idCliente.valueOf() }) 
 
-        respuestaCliente.data.phoneCliente = phoneCliente.valueOf()
-        
+        respuestaCliente.data.phoneCliente = phoneCliente.valueOf()  
 
         return await respuestaCliente.data
-        // return new ClienteDomainEntity({ idCliente: (respuestaCliente).data, idCurso: (respuestaCurso).data, idCupon: (respuestaCupon).data })
+     
     }
 
 
