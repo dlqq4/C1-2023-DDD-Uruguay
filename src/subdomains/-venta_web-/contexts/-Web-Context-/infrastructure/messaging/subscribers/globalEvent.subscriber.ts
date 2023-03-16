@@ -35,7 +35,7 @@ export class GlobalControllerEvent{
     }
 
 
-    @EventPattern('venta-web-system.cliente-creado')
+    @EventPattern('web-context.cliente-creado')
     clienteCreado(@Payload() data: any, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')

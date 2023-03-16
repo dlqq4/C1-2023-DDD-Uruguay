@@ -1,17 +1,13 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CreateClienteCommand } from '../utils/commands/createCliente.command';
 import { CreateClienteUseCase, CreateCompraUseCase, CreateCursoUseCase, ObtenerClienteUseCase, ObtenerCursoUseCase, UpdateClientPhoneUseCase, UpdateCursoCostoUseCase } from '../../application/use-cases/compra';
-import { ICompraService } from '../../domain/services/compra.service';
 import { ICreateCompraCommand } from '../utils/commands/compra/createCompra.command';
-
-import { ICursoService } from '../../domain/services/curso.service';
 import { ICreateCursoCommand } from '../utils/commands/compra/createCurso.command';
 import { IUpdatePhoneCommand } from '../utils/commands/updatePhone.command';
 import { IUpdateCostoCommand } from '../utils/commands/compra/curso/updateCosto.command';
 import { IObtenerCursoCommand } from '../utils/commands/compra/curso/obtenerCurso.command';
 import { IObtenerClienteCommand } from '../utils/commands/ObtenerCliente.command';
 import { CreateClientePublisher, CreateCompraPublisher, CreateCursoPublisher, ObtenerClientePublisher, ObtenerCursoPublisher, UpdateCostoPublisher, UpdatePhonePublisher } from '../messaging/publisher';
-
 import { CompraService } from '../persistence/services/compra.service';
 import { CursoService } from '../persistence/services/curso.service';
 import { ClienteService } from '../persistence/services/cliente.service';
@@ -28,7 +24,6 @@ export class CompraController {
         private readonly cursoService: CursoService,
 
 
-        
         private readonly compraCreadaPublisher : CreateCompraPublisher,
         
         private readonly clienteCreadoPublisher: CreateClientePublisher,
@@ -54,6 +49,7 @@ export class CompraController {
         return await useCase.execute(command);
     }
     
+    //!
     @Post('/crear-cliente')
     async crearCliente(@Body() command: CreateClienteCommand) {
         const useCase = new CreateClienteUseCase(

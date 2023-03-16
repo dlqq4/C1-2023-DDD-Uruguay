@@ -1,11 +1,8 @@
-
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { IRepository } from './base/repository.base';
 import {  ClienteMySqlEntity } from '../entities/cliente.entity';
 import { BadRequestException, Injectable } from '@nestjs/common';
-
-
 
 
 @Injectable()
