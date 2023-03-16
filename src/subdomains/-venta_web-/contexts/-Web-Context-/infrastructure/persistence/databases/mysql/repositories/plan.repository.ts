@@ -22,9 +22,7 @@ export class PlanRepository implements IRepository<PlanMySqlEntity>{
         const data = await this.repository.findOneBy({idPlan});
         
         if (data){
-            const entidadUpdated = {...entity, idPlan};
-
-            return this.repository.save(entidadUpdated)
+            return this.repository.save(entity)
         }
         throw new BadRequestException(`El plan con el id: ${idPlan} no se encuentra`)
     }

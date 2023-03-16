@@ -37,9 +37,7 @@ export class CuponRepository implements IRepository<CuponMySqlEntity>{
     async update(idCupon: string, entity: CuponMySqlEntity): Promise<CuponMySqlEntity> {
         const data = await this.repository.findOneBy({idCupon});
         if (data){
-            const entidadUpdated = {...entity, idCupon};
-
-            return this.repository.save(entidadUpdated)
+            return this.repository.save(entity)
         }
 
         throw new BadRequestException(`El cupon con el id: ${idCupon} no se encuentra`)

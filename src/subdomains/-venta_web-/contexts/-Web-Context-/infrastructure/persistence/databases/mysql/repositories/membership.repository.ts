@@ -33,9 +33,7 @@ export class MembershipRepository implements IRepository<MembershipMySqlEntity>{
         const data = await this.repository.findOneBy({idMembership});
         
         if (data){
-            const entidadUpdated = {...entity, idMembership};
-
-            return this.repository.save(entidadUpdated)
+            return this.repository.save(entity)
         }
         throw new BadRequestException(`El cliente con el id: ${idMembership} no se encuentra`)
     }

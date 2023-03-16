@@ -1,5 +1,6 @@
 import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
-import { ClienteDomainEntity, CompraAggregate, IClienteDomainEntityInterface, IClienteService, IClientephoneActualizadoResponse, ICompraService, IUpdatePhoneMethod, PhoneValueObject, UpdatePhoneEventPublisher } from "../../../domain";
+import { ClienteConseguidoEventPublisher, ClienteDomainEntity, CompraAggregate, IClienteDomainEntityInterface, IClienteService, IClientephoneActualizadoResponse, ICompraService, IUpdatePhoneMethod, PhoneValueObject, UpdatePhoneEventPublisher } from "../../../domain";
+import { ObtenerClienteUseCase } from "./obtener-cliente.use-case";
 
 export class UpdateClientPhoneUseCase<
 
@@ -12,13 +13,15 @@ export class UpdateClientPhoneUseCase<
 
     //LO PRIMERO QUE NECESITO ES EL AGREGADO ROOT
     private readonly compraAggregate: CompraAggregate
+    private readonly obtenerClienteUseCase: ObtenerClienteUseCase
 
     //INYECTO EL SERVICIO Y EL EVENTO NECESARIO
     constructor(
         private readonly clienteService: IClienteService,
+        private readonly clienteConseguidoEventPublisher: ClienteConseguidoEventPublisher,
         private readonly updatePhoneEventPublisher: UpdatePhoneEventPublisher) {
         super();
-        this.compraAggregate = new CompraAggregate({ updatePhoneEventPublisher, clienteService})
+        this.compraAggregate = new CompraAggregate({ updatePhoneEventPublisher, clienteService, clienteConseguidoEventPublisher})
     }
 
     /*
@@ -27,13 +30,13 @@ export class UpdateClientPhoneUseCase<
     antes de continuar con la ejecución del código.
     */
     async execute(command?: Command): Promise<Response> {
-        const data = await this.executeCompraAggregate(command)
+        const data = await this.executeCommand(command)
         return { success: data ? true : false, data } as unknown as Response
     }
 
     //METODO PARA EJECUTAR EL METODO DE MI AGREGADO
-    private executeCompraAggregate(data: IClienteDomainEntityInterface): Promise<ClienteDomainEntity | null> {
-        return this.compraAggregate.updatePhone(data as IUpdatePhoneMethod)
+    private async executeCompraAggregate(data: IClienteDomainEntityInterface): Promise<ClienteDomainEntity | null> {
+        return await this.compraAggregate.updatePhone(data as IUpdatePhoneMethod)
     }
 
     //TRANSFORMO LOS STRING DE LA INTERFAZ COMMAND Y CREO LOS OBJETOS DE VALOR PARA PODER VALIDARLOS 
@@ -59,20 +62,33 @@ export class UpdateClientPhoneUseCase<
             );
     }
 
-    private createEntity(valueObject: IClienteDomainEntityInterface): ClienteDomainEntity {
+    private async createEntity(valueObject: IClienteDomainEntityInterface): Promise<ClienteDomainEntity> {
+        
+
         const { phoneCliente, idCliente } = valueObject
 
-        return new ClienteDomainEntity({idCliente : idCliente.valueOf(), phoneCliente: phoneCliente.valueOf()})
+        const getCliente = new ObtenerClienteUseCase(this.clienteService, this.clienteConseguidoEventPublisher)
+        
+        const respuestaCliente = await getCliente.execute({ idCliente: idCliente.valueOf() }) 
+
+        respuestaCliente.data.phoneCliente = phoneCliente.valueOf()
+        
+
+        return await respuestaCliente.data
+        // return new ClienteDomainEntity({ idCliente: (respuestaCliente).data, idCurso: (respuestaCurso).data, idCupon: (respuestaCupon).data })
     }
 
 
     async executeCommand(command: Command): Promise<ClienteDomainEntity | null> {
 
-        const ValueObject = this.createValueObject(command); //CREO LOS OBJETOS DE VALOR
-        this.validateValueObject(ValueObject); //VALIDO LOS OBJETOS DE VALOR
-        const cliente = this.createEntity(ValueObject); //CREO MI ENTIDAD A PARTIR DE LOS OBJETOS DE VALOR
+        //const ValueObject = this.createValueObject(command); //CREO LOS OBJETOS DE VALOR
+        //this.validateValueObject(ValueObject); //VALIDO LOS OBJETOS DE VALOR
+        const cliente = await this.createEntity({ 
+            idCliente: command.idCliente.valueOf(),
+            phoneCliente: command.phoneCliente.valueOf()
+        }); //CREO MI ENTIDAD A PARTIR DE LOS OBJETOS DE VALOR
 
-        return this.executeCompraAggregate(cliente);
+        return await this.executeCompraAggregate(cliente as IClienteDomainEntityInterface);
     }
 
     

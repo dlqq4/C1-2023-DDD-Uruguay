@@ -34,9 +34,7 @@ export class ClienteRepository implements IRepository<ClienteMySqlEntity>{
         const data = await this.repository.findOneBy({idCliente});
         
         if (data){
-            const entidadUpdated = {...entity, idCliente};
-
-            return this.repository.save(entidadUpdated)
+            return this.repository.save(entity)
         }
         throw new BadRequestException(`El cliente con el id: ${idCliente} no se encuentra`)
     }

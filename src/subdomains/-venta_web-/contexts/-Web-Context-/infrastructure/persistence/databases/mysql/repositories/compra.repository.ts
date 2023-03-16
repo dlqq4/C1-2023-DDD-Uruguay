@@ -38,9 +38,7 @@ export class CompraRepository implements IRepository<CompraMySqlEntity>{
         const data = await this.repository.findOneBy({idCompra});
         
         if (data){
-            const entidadUpdated = {...entity, idCompra};
-
-            return this.repository.save(entidadUpdated)
+            return this.repository.save(entity)
         }
         throw new BadRequestException(`La compra con el id: ${idCompra} no se encuentra`)
     }

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Put } from '@nestjs/common';
 import { CreateClienteCommand } from '../utils/commands/createCliente.command';
 import { CreateClienteUseCase, CreateCompraUseCase, CreateCursoUseCase, ObtenerClienteUseCase, ObtenerCursoUseCase, UpdateClientPhoneUseCase, UpdateCursoCostoUseCase } from '../../application/use-cases/compra';
 import { ICreateCompraCommand } from '../utils/commands/compra/createCompra.command';
@@ -65,7 +65,7 @@ export class CompraController {
         return await useCase.execute(command);
     }
     
-    //!
+    
     @Post('/crear-cliente')
     async crearCliente(@Body() command: CreateClienteCommand) {
         const useCase = new CreateClienteUseCase(
@@ -98,11 +98,13 @@ export class CompraController {
 
     //UPDATES
 
-    @Post('/update-phone')
+    @Put('/update-phone')
     async updatePhoneCliente(@Body() command: IUpdatePhoneCommand ) {
         const useCase = new UpdateClientPhoneUseCase(
             this.clienteService,
             this.updatePhonePublisher,
+            this.clienteConseguidoPublisher,
+
         );
         return await useCase.execute(command);
     }

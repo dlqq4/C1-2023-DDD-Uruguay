@@ -35,9 +35,7 @@ export class CursoRepository implements IRepository<CursoMySqlEntity>{
     async update(idCurso: string, entity: CursoMySqlEntity): Promise<CursoMySqlEntity> {
         const data = await this.repository.findOneBy({idCurso});
         if (data){
-            const entidadUpdated = {...entity, idCurso};
-
-            return this.repository.save(entidadUpdated)
+            return this.repository.save(entity)
         }
 
         throw new BadRequestException(`El curso con el id: ${idCurso} no se encuentra`)
