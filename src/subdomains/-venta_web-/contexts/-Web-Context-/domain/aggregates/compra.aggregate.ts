@@ -22,6 +22,7 @@ import { CursoConseguidoEventPublisher } from "../events/publishers/compra/curso
 import { CreateClienteHelper } from "./helpers/create-cliente.helper";
 import { CuponCreadoEventPublisher } from "../events/publishers/compra/cupon-creado.event-publisher";
 import { ICreateCuponMethod } from "../interfaces/commands/compra/createCupon.command";
+import { CuponConseguidoEventPublisher } from "../events/publishers/compra/cupon";
 
 
 
@@ -45,6 +46,7 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
     private readonly cursoConseguidoEventPublisher?: CursoConseguidoEventPublisher;
 
     private readonly cuponCreadoEventPublisher?: CuponCreadoEventPublisher;
+    private readonly cuponConseguidoEventPublisher?: CuponConseguidoEventPublisher;
 
 
     constructor({
@@ -64,7 +66,8 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
         cursoCreadoEventPublisher,
         clienteConseguidoEventPublisher,
         cursoConseguidoEventPublisher,
-        cuponCreadoEventPublisher
+        cuponCreadoEventPublisher,
+        cuponConseguidoEventPublisher
 
     }: {
    
@@ -84,6 +87,7 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
         clienteConseguidoEventPublisher?: ClienteConseguidoEventPublisher;
         cursoConseguidoEventPublisher?: CursoConseguidoEventPublisher;
         cuponCreadoEventPublisher?: CuponCreadoEventPublisher;
+        cuponConseguidoEventPublisher?: CuponConseguidoEventPublisher;
 
     }) {
 
@@ -101,7 +105,7 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
         this.clienteConseguidoEventPublisher = clienteConseguidoEventPublisher;
         this.cursoConseguidoEventPublisher = cursoConseguidoEventPublisher;
         this.cuponCreadoEventPublisher = cuponCreadoEventPublisher;
-
+        this.cuponConseguidoEventPublisher = cuponConseguidoEventPublisher;
     
 
     }
@@ -203,7 +207,8 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
     }
     
 
-    //METODOS PARA OBTENER LAS ENTIDADES 
+    //METODOS PARA OBTENER LAS ENTIDADES*************************************
+
     async obtenerCliente(client: string): Promise<ClienteDomainEntity> {
       
       if (this.clienteService && this.clienteConseguidoEventPublisher) {
@@ -223,6 +228,19 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
         this.cursoConseguidoEventPublisher.response = result;
         this.cursoConseguidoEventPublisher.publish();
         return this.cursoConseguidoEventPublisher.response;
+      }
+      throw new AggregateRootException(
+        'Faltan definir datos',
+      );
+    }
+
+    async obtenerCupon(cupon: string): Promise<CuponDomainEntity> {
+      
+      if (this.cuponService && this.cuponConseguidoEventPublisher) {
+        const result = await this.cuponService.obtenerCupon(cupon);
+        this.cuponConseguidoEventPublisher.response = result;
+        this.cuponConseguidoEventPublisher.publish();
+        return this.cuponConseguidoEventPublisher.response;
       }
       throw new AggregateRootException(
         'Faltan definir datos',

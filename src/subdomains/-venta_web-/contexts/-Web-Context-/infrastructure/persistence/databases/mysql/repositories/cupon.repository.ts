@@ -33,6 +33,7 @@ export class CuponRepository implements IRepository<CuponMySqlEntity>{
         return await this.repository.save(entity)
     }
 
+    
     async update(idCupon: string, entity: CuponMySqlEntity): Promise<CuponMySqlEntity> {
         const data = await this.repository.findOneBy({idCupon});
         if (data){

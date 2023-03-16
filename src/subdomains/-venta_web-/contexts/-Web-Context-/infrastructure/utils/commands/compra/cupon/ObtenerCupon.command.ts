@@ -1,4 +1,4 @@
-import { IsString } from "class-validator/types/decorator/decorators";
+import { IsString } from "class-validator";
 import { IObtenerCuponMethod } from "src/subdomains/-venta_web-/contexts/-Web-Context-/domain";
 
 

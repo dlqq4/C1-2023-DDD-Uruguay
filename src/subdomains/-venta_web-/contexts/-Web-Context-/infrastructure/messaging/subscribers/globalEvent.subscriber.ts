@@ -77,7 +77,17 @@ export class GlobalControllerEvent{
         console.log('--------------------------------------')
     }
 
-    //*******************CUPON********************* */
+    //*******************CUPON*********************  'web-context.cupon-creado' */
+
+    @EventPattern('web-context.cupon-creado')
+    cuponCreado(@Payload() data: any, @Ctx() context: KafkaContext){
+
+        console.log('--------------------------------------')
+        console.log('Data: ', data)
+        console.log('--------------------------------------')
+        console.log('Context: ', context)
+        console.log('--------------------------------------')
+    }
 
     @EventPattern('web-context.cupon-conseguido')
     cuponConseguido(@Payload() data: any, @Ctx() context: KafkaContext){

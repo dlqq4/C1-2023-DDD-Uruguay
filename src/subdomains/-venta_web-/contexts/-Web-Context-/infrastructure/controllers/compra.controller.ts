@@ -7,10 +7,16 @@ import { IUpdatePhoneCommand } from '../utils/commands/updatePhone.command';
 import { IUpdateCostoCommand } from '../utils/commands/compra/curso/updateCosto.command';
 import { IObtenerCursoCommand } from '../utils/commands/compra/curso/obtenerCurso.command';
 import { IObtenerClienteCommand } from '../utils/commands/ObtenerCliente.command';
-import { CreateClientePublisher, CreateCompraPublisher, CreateCursoPublisher, ObtenerClientePublisher, ObtenerCursoPublisher, UpdateCostoPublisher, UpdatePhonePublisher } from '../messaging/publisher';
+import { CreateClientePublisher, CreateCompraPublisher, CreateCursoPublisher, ObtenerClientePublisher, ObtenerCuponPublisher, ObtenerCursoPublisher, UpdateCostoPublisher, UpdatePhonePublisher } from '../messaging/publisher';
 import { CompraService } from '../persistence/services/compra.service';
 import { CursoService } from '../persistence/services/curso.service';
 import { ClienteService } from '../persistence/services/cliente.service';
+import { IObtenerCuponCommand } from '../utils/commands/compra/cupon';
+import { ObtenerCuponUseCase } from '../../application/use-cases/compra/obtener-cupon.use-case';
+import { CuponService } from '../persistence/services/cupon.service';
+import { CreateCuponPublisher } from '../messaging/publisher/compra/cupon-creado.publisher';
+import { CreateCuponUseCase } from '../../application/use-cases/compra/create-cupon.use-case';
+import { ICreateCuponCommand } from '../utils/commands/compra/createCupon.command';
 
 
 @Controller('compra') 
@@ -22,6 +28,7 @@ export class CompraController {
         private readonly clienteService: ClienteService,
         private readonly compraService: CompraService,
         private readonly cursoService: CursoService,
+        private readonly cuponService: CuponService,
 
 
         private readonly compraCreadaPublisher : CreateCompraPublisher,
@@ -32,7 +39,13 @@ export class CompraController {
 
         private readonly cursoCreadoPublisher: CreateCursoPublisher,
         private readonly updateCostoCursoPublisher: UpdateCostoPublisher,
-        private readonly cursoConseguidoPublisher: ObtenerCursoPublisher
+        private readonly cursoConseguidoPublisher: ObtenerCursoPublisher,
+
+        private readonly cuponConseguidoPublisher : ObtenerCuponPublisher,
+        private readonly cuponCreadoPublisher: CreateCuponPublisher,
+        
+
+
 
         
     ) {}
@@ -67,6 +80,18 @@ export class CompraController {
         );
         return await useCase.execute(command);
     }
+
+    
+
+    @Post('/crear-cupon')
+    async crearCupon(@Body() command: ICreateCuponCommand ) {
+        const useCase = new CreateCuponUseCase(
+            this.cuponService,
+            this.cuponCreadoPublisher,
+        );
+        return await useCase.execute(command);
+    }
+    
 
     //UPDATES
 
@@ -109,11 +134,21 @@ export class CompraController {
         );
         return await useCase.execute(command);
     }
+
+    //**********************************************************************
+
+    @Post('/obtener-cliente')
+    async obtenerCupon(@Body() command: IObtenerCuponCommand ) {
+        const useCase = new  ObtenerCuponUseCase(
+            this.cuponService,
+            this.cuponConseguidoPublisher,
+        );
+        return await useCase.execute(command);
+    }
     
     /*
     CREAR CUPON
     UPDATE PORCENTAJE CUPON
-    OBTENER CUPON
     */
 }
   

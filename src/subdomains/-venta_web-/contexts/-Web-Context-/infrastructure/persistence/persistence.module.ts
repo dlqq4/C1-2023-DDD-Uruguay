@@ -9,6 +9,7 @@ import { PlanService } from "./services/plan.service";
 
 import { ClienteService } from "./services/cliente.service";
 import { EventRepository } from "./databases/mysql/repositories/event.repository";
+import { CuponService } from "./services/cupon.service";
 
 
 
@@ -19,9 +20,11 @@ import { EventRepository } from "./databases/mysql/repositories/event.repository
         CompraService,
         ClienteService,
         CursoService,
+        CuponService,
 
         MembershipService,    
-        PlanService,
+        PlanService
+        
        
 
        
@@ -30,6 +33,7 @@ import { EventRepository } from "./databases/mysql/repositories/event.repository
         CompraService,
         ClienteService,
         CursoService,
+        CuponService,
 
         MembershipService,    
         PlanService,

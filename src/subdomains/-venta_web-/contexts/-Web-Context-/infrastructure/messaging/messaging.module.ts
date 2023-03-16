@@ -2,8 +2,9 @@ import { Module } from '@nestjs/common';
 import { ClientsModule } from '@nestjs/microservices';
 import { Transport } from '@nestjs/microservices/enums';
 import { CreateClientePublisher } from './publisher/cliente/cliente-creado.publisher';
-import { CreateCompraPublisher, CreateCursoPublisher, CreateMembershipPublisher, CreatePlanPublisher, ObtenerClientePublisher, ObtenerCursoPublisher, UpdateCostoPublisher, UpdatePhonePublisher } from './publisher';
+import { CreateCompraPublisher, CreateCursoPublisher, CreateMembershipPublisher, CreatePlanPublisher, ObtenerClientePublisher, ObtenerCuponPublisher, ObtenerCursoPublisher, UpdateCostoPublisher, UpdatePhonePublisher } from './publisher';
 import { GlobalControllerEvent } from './subscribers/globalEvent.subscriber';
+import { CreateCuponPublisher } from './publisher/compra/cupon-creado.publisher';
 
 
 
@@ -52,6 +53,8 @@ import { GlobalControllerEvent } from './subscribers/globalEvent.subscriber';
         CreateCursoPublisher,
         UpdateCostoPublisher,
         ObtenerCursoPublisher,
+        ObtenerCuponPublisher,
+        CreateCuponPublisher,
         
         CreateMembershipPublisher,
         CreatePlanPublisher,
@@ -67,6 +70,9 @@ import { GlobalControllerEvent } from './subscribers/globalEvent.subscriber';
         CreateCursoPublisher,
         UpdateCostoPublisher,
         ObtenerCursoPublisher,
+        ObtenerCuponPublisher,
+        CreateCuponPublisher,
+        
 
         CreateMembershipPublisher,
         CreatePlanPublisher,

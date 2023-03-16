@@ -6,8 +6,8 @@ import { TypeOrmMySqlConfigService } from "./configs";
 import { ClienteMySqlEntity, CursoMySqlEntity, PlanMySqlEntity, CuponMySqlEntity, CompraMySqlEntity, MembershipMySqlEntity } from "./entities";
 import { MembershipMySqlService } from "./services/membershipMySql.service";
 import { PlanMySqlService } from "./services/planMySql.service";
-import { EventRepository } from "./repositories/event.repository";
-import { EventEntity } from "../../entities/event.entity";
+import { CuponMySqlService } from "./services/cuponMySql.service";
+
 
 
 @Module({
@@ -41,7 +41,7 @@ import { EventEntity } from "../../entities/event.entity";
         CompraMySqlService,
         CompraRepository,
 
-       //CuponMySqlService,
+        CuponMySqlService,
         CuponRepository,
 
         MembershipMySqlService,
@@ -64,7 +64,7 @@ import { EventEntity } from "../../entities/event.entity";
         CompraMySqlService,
         CompraRepository,
 
-       //CuponMySqlService,
+        CuponMySqlService,
         CuponRepository,
 
         MembershipMySqlService,
