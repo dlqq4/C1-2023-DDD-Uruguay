@@ -4,9 +4,9 @@ import { PorcentajeValueObject } from "../../value-objects/cupon/porcentaje.valu
 
 export interface ICuponDomainEntityInterface {
 
-    idCupon : string | UuidValueObject;
-    dateCreateCupon : number | DateValueObject;
-    porcentajeCupon : number | PorcentajeValueObject;
+    idCupon? : string | UuidValueObject;
+    dateCreateCupon? : number | DateValueObject;
+    porcentajeCupon? : number | PorcentajeValueObject;
     
 
 }

@@ -24,7 +24,7 @@ export class GlobalControllerEvent{
 
     //*****************MEMBERSHIP*************************** */
 
-    @EventPattern('venta-web-system.compra-creada')
+    @EventPattern('web-context.compra-creada')
     compraCreada(@Payload() data: any, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')
@@ -45,7 +45,7 @@ export class GlobalControllerEvent{
         console.log('--------------------------------------')
     }
 
-    @EventPattern('venta-web-system.curso-creado')
+    @EventPattern('web-context.curso-creado')
     cursoCreado(@Payload() data: any, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')
@@ -57,7 +57,7 @@ export class GlobalControllerEvent{
 
     //*******************CURSO********************** */
 
-    @EventPattern('venta-web-system.curso-conseguido')
+    @EventPattern('web-context.curso-conseguido')
     cursoConseguido(@Payload() data: any, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')
@@ -67,7 +67,7 @@ export class GlobalControllerEvent{
         console.log('--------------------------------------')
     }
 
-    @EventPattern('venta-web-system.update-costo-curso')
+    @EventPattern('web-context.update-costo')
     updatedCostoCurso(@Payload() data: any, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')
@@ -79,7 +79,7 @@ export class GlobalControllerEvent{
 
     //*******************CUPON********************* */
 
-    @EventPattern('venta-web-system.cupon-conseguido')
+    @EventPattern('web-context.cupon-conseguido')
     cuponConseguido(@Payload() data: any, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')
@@ -89,7 +89,7 @@ export class GlobalControllerEvent{
         console.log('--------------------------------------')
     }
 
-    @EventPattern('venta-web-system.update-porcentaje-cupon')
+    @EventPattern('web-context.update-porcentaje')
     updatedPorcentajeCupon(@Payload() data: any, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')
@@ -101,7 +101,7 @@ export class GlobalControllerEvent{
 
     //*****************CLIENTE******************* */
 
-    @EventPattern('venta-web-system.update-phone')
+    @EventPattern('web-context.update-phone')
     updatedClientePhone(@Payload() data: any, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')
@@ -111,7 +111,7 @@ export class GlobalControllerEvent{
         console.log('--------------------------------------')
     }
 
-    @EventPattern('venta-web-system.cliente-conseguido')
+    @EventPattern('web-context.cliente-conseguido')
     clienteConseguido(@Payload() data: any, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')
@@ -123,7 +123,7 @@ export class GlobalControllerEvent{
 
     //******************MEMBERSHIP*************** */
 
-    @EventPattern('venta-web-system.membresia-creada')
+    @EventPattern('web-context.membresia-creada')
     membresiaCreada(@Payload() data: any, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')
@@ -133,7 +133,7 @@ export class GlobalControllerEvent{
         console.log('--------------------------------------')
     }
 
-    @EventPattern('venta-web-system.plan-creado')
+    @EventPattern('web-context.plan-creado')
     planCreado(@Payload() data: any, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')
@@ -145,7 +145,7 @@ export class GlobalControllerEvent{
 
     //*********************PLAN***************************** */
 
-    @EventPattern('venta-web-system.plan-conseguido')
+    @EventPattern('web-context.curso-conseguido')
     planConseguido(@Payload() data: any, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')
@@ -157,7 +157,7 @@ export class GlobalControllerEvent{
 
 
 
-    @EventPattern('venta-web-system.update-costo-plan')
+    @EventPattern('web-context.update-costo')
     updatedCostopPlan(@Payload() data: any, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')
@@ -167,7 +167,7 @@ export class GlobalControllerEvent{
         console.log('--------------------------------------')
     }
 
-    @EventPattern('venta-web-system.update-nombre-plan')
+    @EventPattern('web-context.update-nombre')
     updatedPlanNombre(@Payload() data: any, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')

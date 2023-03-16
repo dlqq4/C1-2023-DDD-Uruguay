@@ -1,5 +1,5 @@
 import { IUpdatePhoneMethod } from "../interfaces/commands/cliente/updatePhone.command";
-import { ClienteDomainEntity, CursoDomainEntity } from "../entities";
+import { ClienteDomainEntity, CuponDomainEntity, CursoDomainEntity } from "../entities";
 import { CompraDomainEntity } from "../entities/compra/compra.domain-entity";
 import { ICreateClienteMethod } from "../interfaces/commands/cliente/createCliente.command";
 import { ICreateCompraMethod } from "../interfaces/commands/compra/createCompra.command";
@@ -20,6 +20,8 @@ import { AggregateRootException } from "src/libs/sofka/exceptions/aggregate-root
 import { ClienteConseguidoEventPublisher } from "../events/publishers/compra/cliente/cliente-conseguido.event-publisher";
 import { CursoConseguidoEventPublisher } from "../events/publishers/compra/curso/curso-conseguido.event-publisher";
 import { CreateClienteHelper } from "./helpers/create-cliente.helper";
+import { CuponCreadoEventPublisher } from "../events/publishers/compra/cupon-creado.event-publisher";
+import { ICreateCuponMethod } from "../interfaces/commands/compra/createCupon.command";
 
 
 
@@ -42,6 +44,8 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
     private readonly clienteConseguidoEventPublisher?: ClienteConseguidoEventPublisher;
     private readonly cursoConseguidoEventPublisher?: CursoConseguidoEventPublisher;
 
+    private readonly cuponCreadoEventPublisher?: CuponCreadoEventPublisher;
+
 
     constructor({
 
@@ -59,7 +63,8 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
         compraCreadaEventPublisher,
         cursoCreadoEventPublisher,
         clienteConseguidoEventPublisher,
-        cursoConseguidoEventPublisher
+        cursoConseguidoEventPublisher,
+        cuponCreadoEventPublisher
 
     }: {
    
@@ -78,6 +83,7 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
         cursoCreadoEventPublisher?: CursoCreadoEventPublisher;
         clienteConseguidoEventPublisher?: ClienteConseguidoEventPublisher;
         cursoConseguidoEventPublisher?: CursoConseguidoEventPublisher;
+        cuponCreadoEventPublisher?: CuponCreadoEventPublisher;
 
     }) {
 
@@ -94,6 +100,7 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
         this.cursoCreadoEventPublisher = cursoCreadoEventPublisher;
         this.clienteConseguidoEventPublisher = clienteConseguidoEventPublisher;
         this.cursoConseguidoEventPublisher = cursoConseguidoEventPublisher;
+        this.cuponCreadoEventPublisher = cuponCreadoEventPublisher;
 
     
 
@@ -144,7 +151,21 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
           );
     }
 
-    async updatePorcentaje(data: IUpdatePorcentajeMethod): Promise<number> {
+
+    async createCupon(cupon: ICreateCuponMethod): Promise<CuponDomainEntity> {
+      if (this.cuponService && this.cuponCreadoEventPublisher) {
+          const result = await this.cuponService.createCupon(cupon);
+          this.cuponCreadoEventPublisher.response = result;
+          this.cuponCreadoEventPublisher.publish();
+          return this.cuponCreadoEventPublisher.response;
+        }
+        throw new AggregateRootException(
+          'Faltan definir datos',
+        );
+  }
+
+
+    async updatePorcentaje(data: IUpdatePorcentajeMethod): Promise<CuponDomainEntity> {
         if (this.cuponService && this.updatePorcentajeEventPublisher) {
             const result = await this.cuponService.updatePorcentaje(data);
             this.updatePorcentajeEventPublisher.response = result;

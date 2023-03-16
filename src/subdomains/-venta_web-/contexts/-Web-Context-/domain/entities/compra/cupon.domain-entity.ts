@@ -6,9 +6,9 @@ import { v4 as uuidv4 } from 'uuid';
 
 export class CuponDomainEntity implements ICuponDomainEntityInterface{
 
-    idCupon: string | UuidValueObject;
-    dateCreateCupon: number | DateValueObject;
-    porcentajeCupon: number | PorcentajeValueObject;
+    idCupon?: string | UuidValueObject;
+    dateCreateCupon?: number | DateValueObject;
+    porcentajeCupon?: number | PorcentajeValueObject;
 
     constructor( _data? : ICuponDomainEntityInterface ){
         
