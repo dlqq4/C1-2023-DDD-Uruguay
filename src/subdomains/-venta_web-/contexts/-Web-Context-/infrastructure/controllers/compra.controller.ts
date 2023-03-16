@@ -56,8 +56,14 @@ export class CompraController {
     @Post('/crear-compra')
     async crearCompra(@Body() command: ICreateCompraCommand ) {
         const useCase = new CreateCompraUseCase(
-            this.compraService,
+            this.compraService,       
+            this.clienteService,
+            this.cursoService,
+            this.cuponService,
             this.compraCreadaPublisher,
+            this.clienteConseguidoPublisher,
+            this.cursoConseguidoPublisher,
+            this.cuponConseguidoPublisher,
         );
         return await useCase.execute(command);
     }
@@ -135,7 +141,6 @@ export class CompraController {
         return await useCase.execute(command);
     }
 
-    //**********************************************************************
 
     @Post('/obtener-cliente')
     async obtenerCupon(@Body() command: IObtenerCuponCommand ) {
@@ -147,7 +152,6 @@ export class CompraController {
     }
     
     /*
-    CREAR CUPON
     UPDATE PORCENTAJE CUPON
     */
 }

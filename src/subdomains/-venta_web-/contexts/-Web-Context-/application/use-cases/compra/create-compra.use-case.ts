@@ -1,7 +1,10 @@
 import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
-import { CompraAggregate, CompraCreadaEventPublisher, CompraDomainEntity, ICompraCreadaResponse, ICompraDomainEntityInterface, ICompraService, ICreateCompraMethod, UuidValueObject } from "../../../domain";
+import { ClienteConseguidoEventPublisher, CompraAggregate, CompraCreadaEventPublisher, CompraDomainEntity, CuponConseguidoEventPublisher, CursoConseguidoEventPublisher, IClienteService, ICompraCreadaResponse, ICompraDomainEntityInterface, ICompraService, ICreateCompraMethod, ICuponService, ICursoService, UuidValueObject } from "../../../domain";
 import { ObtenerClienteUseCase } from "./obtener-cliente.use-case";
 import { ObtenerCursoUseCase } from "./obtener-curso.use-case";
+import { ObtenerCuponUseCase } from "./obtener-cupon.use-case";
+
+
 
 export class CreateCompraUseCase<
 
@@ -17,12 +20,23 @@ export class CreateCompraUseCase<
     private readonly compraAggregate: CompraAggregate
     private readonly obtenerClienteUseCase: ObtenerClienteUseCase
     private readonly obtenerCursoeUseCase: ObtenerCursoUseCase
-    // private readonly obtenerCuponeUseCase : ObtenerCuponUseCase
+    private readonly obtenerCuponeUseCase : ObtenerCuponUseCase
 
     //INYECTO EL SERVICIO Y EL EVENTO NECESARIO
-    constructor(private readonly compraService: ICompraService, private readonly compraCreadaEventPublisher: CompraCreadaEventPublisher) {
+    constructor(
+        private readonly compraService: ICompraService,
+        private readonly clienteService: IClienteService,
+        private readonly cursoService: ICursoService,
+        private readonly cuponService: ICuponService,
+
+
+        private readonly compraCreadaEventPublisher: CompraCreadaEventPublisher,
+        private readonly clienteConseguidoEventPublisher: ClienteConseguidoEventPublisher,
+        private readonly cursoConseguidoEventPublisher: CursoConseguidoEventPublisher,
+        private readonly cuponConseguidoEventPublisher: CuponConseguidoEventPublisher,
+        ) {
         super();
-        this.compraAggregate = new CompraAggregate({ compraService, compraCreadaEventPublisher })
+        this.compraAggregate = new CompraAggregate({clienteService, cursoService, cuponService, compraService, compraCreadaEventPublisher, clienteConseguidoEventPublisher,cursoConseguidoEventPublisher, cuponConseguidoEventPublisher})
     }
 
     /*
@@ -44,10 +58,21 @@ export class CreateCompraUseCase<
 
 
     private async createEntity(command: Command): Promise<CompraDomainEntity> {
-        const clienteCompra = this.obtenerClienteUseCase.execute({ idCliente: command.idCliente })
-        const cursoCompra = this.obtenerCursoeUseCase.execute({ idCurso: command.idCurso })
 
-        return new CompraDomainEntity({ clienteCompra: (await clienteCompra).data, cursoCompra: (await cursoCompra).data })
+        const getCliente = new ObtenerClienteUseCase(this.clienteService, this.clienteConseguidoEventPublisher)
+        const getCurso = new ObtenerCursoUseCase(this.cursoService, this.cursoConseguidoEventPublisher)
+        const getCupon = new ObtenerCuponUseCase(this.cuponService, this.cuponConseguidoEventPublisher)
+
+        const respuestaCliente = getCliente.execute({ idCliente: command.idCliente })
+        const respuestaCurso = getCurso.execute({ idCurso: command.idCurso })
+        const respuestaCupon = getCupon.execute({ idCupon: command.idCupon })
+
+
+        //const clienteCompra = this.obtenerClienteUseCase.execute({ idCliente: command.idCliente })
+        //const cursoCompra = this.obtenerCursoeUseCase.execute({ idCurso: command.idCurso })
+
+        //return new CompraDomainEntity({ clienteCompra: (await clienteCompra).data, cursoCompra: (await cursoCompra).data })
+        return new CompraDomainEntity({ clienteCompra: (await respuestaCliente).data, cursoCompra: (await respuestaCurso).data, cuponCompra: (await respuestaCupon).data })
     }
 
 
