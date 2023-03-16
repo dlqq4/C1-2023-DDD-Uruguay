@@ -19,12 +19,14 @@ export class CursoMySqlService implements ICursoService<CursoMySqlEntity> {
         return this.cursoRepository.create(curso);
     }
 
-    updateCosto(data: IUpdateCostoMethod): Promise<CursoDomainEntity> {
-        throw new Error("Method not implemented.");
+    updateCosto(data: CursoMySqlEntity): Promise<CursoDomainEntity> {
+        return this.cursoRepository.update(data.idCurso, data);
+      
     }
 
     obtnerCurso(course: string): Promise<CursoDomainEntity> {
-        throw new Error("Method not implemented.");
+        return this.cursoRepository.findById(course);
+        
     }
     
     

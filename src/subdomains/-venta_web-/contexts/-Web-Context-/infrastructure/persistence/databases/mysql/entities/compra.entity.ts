@@ -14,15 +14,15 @@ export class CompraMySqlEntity extends CompraDomainEntity {
     //RELACIONES
 
     @JoinColumn()
-    @OneToOne( ()=> ClienteMySqlEntity, (cliente)=> cliente.Compra, {cascade:["insert", "update"]} )
-    cliente: ClienteMySqlEntity;
+    @OneToOne( ()=> ClienteMySqlEntity, (cliente)=> cliente.idCliente, {cascade:["insert", "update"]} )
+    idCliente: ClienteMySqlEntity;
     
     @JoinColumn()
-    @OneToOne( ()=> CursoMySqlEntity, (curso)=> curso.compra , {cascade:["insert", "update"]} )
-    curso: CursoMySqlEntity;
+    @OneToOne( ()=> CursoMySqlEntity, (curso)=> curso.idCurso, {cascade:["insert", "update"]} )
+    idCurso: CursoMySqlEntity;
 
     @JoinColumn()
-    @OneToOne( ()=> CuponMySqlEntity, (cupon)=> cupon.compra , {cascade:["insert", "update"]})
-    cupon: CuponMySqlEntity;
+    @OneToOne( ()=> CuponMySqlEntity, (cupon)=> cupon.idCupon, {cascade:["insert", "update"]})
+    idCupon: CuponMySqlEntity;
 }
 

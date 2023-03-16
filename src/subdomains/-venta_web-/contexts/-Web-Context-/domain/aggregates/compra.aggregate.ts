@@ -131,12 +131,12 @@ export class CompraAggregate implements IClienteService, ICompraService, ICuponS
     }
     
 
-    async createCompra(compra: ICreateCompraMethod): Promise<CompraDomainEntity> {
+    async createCompra(compra: CompraDomainEntity): Promise<CompraDomainEntity> {
         if (this.compraService && this.compraCreadaEventPublisher) {
-            const result = await this.compraService.createCompra(compra);
-            this.compraCreadaEventPublisher.response = result;
+            const reponse = await this.compraService.createCompra(compra);
+            this.compraCreadaEventPublisher.response = reponse;
             this.compraCreadaEventPublisher.publish();
-            return this.compraCreadaEventPublisher.response;
+            return new CompraDomainEntity(reponse);
           }
           throw new AggregateRootException(
             'Faltan definir datos',

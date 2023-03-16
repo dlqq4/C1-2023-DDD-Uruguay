@@ -18,12 +18,13 @@ export class CuponMySqlService implements ICuponService<CuponMySqlEntity> {
         return this.cuponRepository.create(cupon)
     }
 
-    updatePorcentaje(data: IUpdatePorcentajeMethod): Promise<CuponDomainEntity> {
-        throw new Error("Method not implemented.");
+    updatePorcentaje(data: CuponMySqlEntity): Promise<CuponMySqlEntity> {
+        return this.cuponRepository.update(data.idCupon, data)
+        
     }
 
-    obtenerCupon(cupon: string): Promise<CuponDomainEntity> {
-        throw new Error("Method not implemented.");
+    obtenerCupon(cupon: string): Promise<CuponMySqlEntity> {
+        return this.cuponRepository.findById(cupon)
     }
 
 

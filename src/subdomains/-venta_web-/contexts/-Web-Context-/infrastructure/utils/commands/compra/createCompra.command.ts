@@ -11,10 +11,12 @@ export class ICreateCompraCommand implements ICreateCompraMethod {
     idCliente? : string;
 
     @IsUUID()
+    idCurso? : string;
+    
+    @IsUUID()
     idCupon? : string;
 
-    @IsUUID()
-    idCurso? : string;
+    
  
  
 }

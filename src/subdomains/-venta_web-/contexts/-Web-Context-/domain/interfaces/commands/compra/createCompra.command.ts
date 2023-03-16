@@ -9,6 +9,5 @@ export interface ICreateCompraMethod {
     idCliente? : string;
     idCupon? : string;
     idCurso? : string;
-
  
 }

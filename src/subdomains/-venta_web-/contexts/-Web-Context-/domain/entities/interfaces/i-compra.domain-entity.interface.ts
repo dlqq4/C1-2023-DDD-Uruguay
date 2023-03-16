@@ -6,8 +6,8 @@ import { ICursoDomainEntityInterface } from "./i-curso.domain-entity.interface";
 export interface ICompraDomainEntityInterface  {
 
     idCompra? : string | UuidValueObject;
-    clienteCompra? :  IClienteDomainEntityInterface;
-    cursoCompra? : ICursoDomainEntityInterface;
-    cuponCompra? : ICuponDomainEntityInterface;
+    idCliente? :  IClienteDomainEntityInterface;
+    idCurso? : ICursoDomainEntityInterface;
+    idCupon? : ICuponDomainEntityInterface;
 
 }

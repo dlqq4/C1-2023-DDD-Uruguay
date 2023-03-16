@@ -19,6 +19,6 @@ export class CuponMySqlEntity extends CuponDomainEntity {
     //RELACIONES
 
     @JoinColumn()
-    @OneToOne( ()=> CompraMySqlEntity, (compra)=> compra.cupon, {cascade:["insert", "update"]} )
+    @OneToOne( ()=> CompraMySqlEntity, (compra)=> compra.idCupon, {cascade:["insert", "update"]} )
     compra: CompraMySqlEntity;
 }

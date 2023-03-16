@@ -24,12 +24,12 @@ export class ClienteMySqlEntity extends ClienteDomainEntity {
     //RELACIONES
    
    
-    @OneToOne( ()=> CompraMySqlEntity, (compra)=> compra.cliente )
+    @OneToOne( ()=> CompraMySqlEntity, (compra)=> compra.idCompra )
     Compra: CompraMySqlEntity;
     
     
     
-    @OneToOne( ()=> MembershipMySqlEntity, (membership)=> membership.cliente  )
+    @OneToOne( ()=> MembershipMySqlEntity, (membership)=> membership.idMembership  )
     membership: MembershipMySqlEntity;
     
     

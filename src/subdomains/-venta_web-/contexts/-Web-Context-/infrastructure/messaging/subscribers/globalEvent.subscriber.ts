@@ -1,5 +1,7 @@
 import { Controller } from "@nestjs/common";
 import { Ctx, EventPattern, KafkaContext, Payload } from "@nestjs/microservices";
+import { EventMySqlEntity } from "../../persistence/databases/mysql/entities/event.entity";
+import { CompraEntity } from "../../persistence/entities/compra.entity";
 
 @Controller()
 export class GlobalControllerEvent{
@@ -25,13 +27,18 @@ export class GlobalControllerEvent{
     //*****************MEMBERSHIP*************************** */
 
     @EventPattern('web-context.compra-creada')
+    //compraCreada(@Payload() data: EventMySqlEntity, @Ctx() context: KafkaContext){3
     compraCreada(@Payload() data: any, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')
-        console.log('Data: ', data)
+        console.log('Data: ', data.data)
         console.log('--------------------------------------')
         console.log('Context: ', context)
         console.log('--------------------------------------')
+
+        //const compra: CompraEntity = JSON.parse(JSON.stringify(data.data))
+        
+
     }
 
 

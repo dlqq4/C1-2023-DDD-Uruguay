@@ -25,6 +25,6 @@ export class PlanMySqlEntity extends PlanDomainEntity {
 
     //RELACIONES
     @JoinColumn()
-    @OneToOne( ()=> MembershipMySqlEntity, (menbership)=> menbership.plan, {cascade:["insert", "update"]} )
+    @OneToOne( ()=> MembershipMySqlEntity, (menbership)=> menbership.idMembership, {cascade:["insert", "update"]} )
     membership: MembershipMySqlEntity;
 }

@@ -6,7 +6,8 @@ import { ICreateCompraMethod } from "../interfaces/commands/compra/createCompra.
 
 export interface ICompraService <T extends CompraDomainEntity =  CompraDomainEntity>{
 
-    createCompra(compra : ICreateCompraMethod ) : Promise<CompraDomainEntity>;
+    //createCompra(compra : T ) : Promise<T>;
+    createCompra(compra : T ) : Promise<T>;
     
 
 /*

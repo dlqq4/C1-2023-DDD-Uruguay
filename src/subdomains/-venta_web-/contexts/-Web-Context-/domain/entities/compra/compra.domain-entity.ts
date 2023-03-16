@@ -7,9 +7,9 @@ export class CompraDomainEntity implements ICompraDomainEntityInterface{
 
 
     idCompra?: string | UuidValueObject;
-    clienteCompra?: IClienteDomainEntityInterface;
-    cursoCompra?: ICursoDomainEntityInterface;
-    cuponCompra?: ICuponDomainEntityInterface;
+    idCliente?:  IClienteDomainEntityInterface;
+    idCurso?:   ICursoDomainEntityInterface;
+    idCupon?:  ICuponDomainEntityInterface;
 
     constructor( _data? : ICompraDomainEntityInterface){
         
@@ -17,11 +17,11 @@ export class CompraDomainEntity implements ICompraDomainEntityInterface{
         
         else this.idCompra = uuidv4();
 
-        if (_data?.clienteCompra) this.clienteCompra = _data.clienteCompra;
+        if (_data?.idCliente) this.idCliente = _data.idCliente;
 
-        if (_data?.cursoCompra) this.cursoCompra = _data.cursoCompra;
+        if (_data?.idCurso) this.idCurso = _data.idCurso;
 
-        if (_data?.cuponCompra) this.cuponCompra = _data.cuponCompra;
+        if (_data?.idCupon) this.idCupon = _data.idCupon;
 
     }
 

@@ -15,12 +15,12 @@ export class MembershipMySqlEntity extends MembershipDomainEntity {
     //RELACIONES
     
     @JoinColumn()
-    @OneToOne( forwardRef => ClienteMySqlEntity, (cliente)=> cliente.membership, {cascade:["insert", "update"]}  )
+    @OneToOne( forwardRef => ClienteMySqlEntity, (cliente)=> cliente.idCliente, {cascade:["insert", "update"]}  )
     cliente: ClienteMySqlEntity;
     
 
     @JoinColumn()
-    @OneToOne( ()=> PlanMySqlEntity, (plan)=> plan.membership, {cascade:["insert", "update"]}  )
+    @OneToOne( ()=> PlanMySqlEntity, (plan)=> plan.idPlan, {cascade:["insert", "update"]}  )
     plan: PlanMySqlEntity;
 
 

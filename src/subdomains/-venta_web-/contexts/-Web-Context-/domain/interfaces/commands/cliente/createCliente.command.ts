@@ -6,7 +6,7 @@ export interface ICreateClienteMethod {
 
     idCliente?: string;
     nombreCliente: string;
-    phoneCliente: string 
+    phoneCliente: string;
     emailCliente: string;
 
     /*

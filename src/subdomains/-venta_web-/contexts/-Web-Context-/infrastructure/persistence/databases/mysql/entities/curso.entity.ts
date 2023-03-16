@@ -21,6 +21,6 @@ export class CursoMySqlEntity extends CursoDomainEntity {
 
     //RELACIONES
     @JoinColumn()
-    @OneToOne( ()=> CompraMySqlEntity, (compra)=> compra.curso, {cascade:["insert", "update"]})
+    @OneToOne( ()=> CompraMySqlEntity, (compra)=> compra.idCompra, {cascade:["insert", "update"]})
     compra: CompraMySqlEntity;
 }

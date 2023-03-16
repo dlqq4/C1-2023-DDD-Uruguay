@@ -45,15 +45,14 @@ export class CreateCompraUseCase<
    ANTES DE CONTINUAR CON LA EJECUCION DE CODIGO
    */
     async execute(command?: Command): Promise<Response> {
-        const data = await this.executeCompraAggregate(command)
+        const data = await this.executeCommand(command)
 
         return { success: data ? true : false, data } as unknown as Response
     }
 
     //METODO PARA EJECUTAR EL METODO DE MI AGREGADO
-    private executeCompraAggregate(compra: ICompraDomainEntityInterface): Promise<CompraDomainEntity | null> {
-
-        return this.compraAggregate.createCompra(compra as ICreateCompraMethod)
+    private async executeCompraAggregate(compra: CompraDomainEntity): Promise<CompraDomainEntity | null> {
+        return this.compraAggregate.createCompra(compra)
     }
 
 
@@ -63,23 +62,19 @@ export class CreateCompraUseCase<
         const getCurso = new ObtenerCursoUseCase(this.cursoService, this.cursoConseguidoEventPublisher)
         const getCupon = new ObtenerCuponUseCase(this.cuponService, this.cuponConseguidoEventPublisher)
 
-        const respuestaCliente = getCliente.execute({ idCliente: command.idCliente })
-        const respuestaCurso = getCurso.execute({ idCurso: command.idCurso })
-        const respuestaCupon = getCupon.execute({ idCupon: command.idCupon })
+        const respuestaCliente = await getCliente.execute({ idCliente: command.idCliente }) 
+        const respuestaCurso = await getCurso.execute({ idCurso: command.idCurso })
+        const respuestaCupon = await getCupon.execute({ idCupon: command.idCupon })
 
-
-        //const clienteCompra = this.obtenerClienteUseCase.execute({ idCliente: command.idCliente })
-        //const cursoCompra = this.obtenerCursoeUseCase.execute({ idCurso: command.idCurso })
-
-        //return new CompraDomainEntity({ clienteCompra: (await clienteCompra).data, cursoCompra: (await cursoCompra).data })
-        return new CompraDomainEntity({ clienteCompra: (await respuestaCliente).data, cursoCompra: (await respuestaCurso).data, cuponCompra: (await respuestaCupon).data })
+        return new CompraDomainEntity({ idCliente: (respuestaCliente).data, idCurso: (respuestaCurso).data, idCupon: (respuestaCupon).data })
     }
 
 
     async executeCommand(command: Command): Promise<CompraDomainEntity | null> {
-        const compraEntity = this.createEntity(command);
+        const compraEntity = await this.createEntity(command);
 
-        return this.executeCompraAggregate(compraEntity as CompraDomainEntity);
+        return await this.executeCompraAggregate(compraEntity);
+        //return this.executeCompraAggregate(await compraEntity);
     }
 
 

@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CreateClienteCommand } from '../utils/commands/createCliente.command';
 import { CreateClienteUseCase, CreateCompraUseCase, CreateCursoUseCase, ObtenerClienteUseCase, ObtenerCursoUseCase, UpdateClientPhoneUseCase, UpdateCursoCostoUseCase } from '../../application/use-cases/compra';
 import { ICreateCompraCommand } from '../utils/commands/compra/createCompra.command';
@@ -44,9 +44,6 @@ export class CompraController {
         private readonly cuponConseguidoPublisher : ObtenerCuponPublisher,
         private readonly cuponCreadoPublisher: CreateCuponPublisher,
         
-
-
-
         
     ) {}
 
@@ -122,7 +119,7 @@ export class CompraController {
 
     //OBTENER
 
-    @Post('/obtener-curso')
+    @Get('/obtener-curso')
     async obtenerCurso(@Body() command: IObtenerCursoCommand ) {
         const useCase = new ObtenerCursoUseCase(
             this.cursoService,
@@ -132,7 +129,7 @@ export class CompraController {
     }
 
     
-    @Post('/obtener-cliente')
+    @Get('/obtener-cliente')
     async obtenerCliente(@Body() command: IObtenerClienteCommand ) {
         const useCase = new  ObtenerClienteUseCase(
             this.clienteService,
@@ -142,7 +139,7 @@ export class CompraController {
     }
 
 
-    @Post('/obtener-cliente')
+    @Get('/obtener-cupon')
     async obtenerCupon(@Body() command: IObtenerCuponCommand ) {
         const useCase = new  ObtenerCuponUseCase(
             this.cuponService,
