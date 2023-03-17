@@ -1,4 +1,9 @@
 
+/**
+ * It checks if the string has a space, and if each word starts with a capital letter.
+ * @param {string} value - string: The value to be validated.
+ * @returns A function that takes a string and returns a boolean.
+ */
 export const isFullNameOK = (value : string): boolean =>{
 
 const dataTest = value;

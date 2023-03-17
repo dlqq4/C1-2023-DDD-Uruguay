@@ -1,6 +1,8 @@
 import {isFullNameOK} from'./fullname-validation'
 
 
+/* A test that is going to pass because the function isFullNameOK is going to accept the string
+       'Bruno Fernandez' */
 describe('isFullNameOK', () => {
     let validador: typeof isFullNameOK;
   
@@ -25,7 +27,7 @@ describe('isFullNameOK', () => {
        '0913664417' */
     it('debería ser verdadero', () => {
       // Arrange
-      const nombre = 'Bruno Fernandez'; //CON ESTE NUMERO EL RESULTADO TIENE QUE SER TRUE
+      const nombre = 'Bruno Fernandez';
       const expected = true;
   
       // Act

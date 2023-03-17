@@ -40,17 +40,23 @@ export class CreateCompraUseCase<
         this.compraAggregate = new CompraAggregate({clienteService, cursoService, cuponService, compraService, compraCreadaEventPublisher, clienteConseguidoEventPublisher,cursoConseguidoEventPublisher, cuponConseguidoEventPublisher})
     }
 
-    /*
-   ESTA FUNCION ASINCRONA DEVUELVE UNA PROMESA Y UTILIZA LA PALABRA CLAVE
+   
+    /**
+     * ESTA FUNCION ASINCRONA DEVUELVE UNA PROMESA Y UTILIZA LA PALABRA CLAVE
    "await" PARA ESPERAR A QUE SE RESUELVA LA PROMESA
    ANTES DE CONTINUAR CON LA EJECUCION DE CODIGO
-   */
+     * 
+     * It executes a command and returns a response.
+     * @param {Command} [command] - The command to execute.
+     * @returns A response object with a success property and a data property.
+     */
     async execute(command?: Command): Promise<Response> {
         const data = await this.executeCommand(command)
 
         return { success: data ? true : false, data } as unknown as Response
     }
 
+    
     //METODO PARA EJECUTAR EL METODO DE MI AGREGADO
     /**
      * It receives a CompraDomainEntity, calls the createCompra function of the CompraAggregate, and

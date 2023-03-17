@@ -23,17 +23,30 @@ export class ObtenerCuponUseCase<
         this.compraAggregate = new CompraAggregate({ cuponService, cuponConseguidoEventPublisher })
     }
 
-    /*
-   ESTA FUNCION ASINCRONA DEVUELVE UNA PROMESA Y UTILIZA LA PALABRA CLAVE
+
+    /**
+     ESTA FUNCION ASINCRONA DEVUELVE UNA PROMESA Y UTILIZA LA PALABRA CLAVE
    "await" PARA ESPERAR A QUE SE RESUELVA LA PROMESA
    ANTES DE CONTINUAR CON LA EJECUCION DE CODIGO
-   */
+     * 
+     * It executes a command and returns a response.
+     * @param {Command} [command] - The command to execute.
+     * @returns The response object is being returned.
+     */
     async execute(command?: Command): Promise<Response> {
         const data = await this.executeCommand(command);
 
         return { success: data ? true : false, data } as unknown as Response
     }
 
+
+
+    /**
+     * > The function `executeCommand` is a private function that returns a promise of a
+     * `CuponDomainEntity` or null
+     * @param {Command} command - Command - The command that is being executed.
+     * @returns The CuponDomainEntity or null
+     */
     private async executeCommand(command: Command): Promise<CuponDomainEntity | null> {
         return this.compraAggregate.obtenerCupon(command.idCupon)
     }

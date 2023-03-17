@@ -33,8 +33,15 @@ export class CreateClienteUseCase<
         this.compraAggregate = new CompraAggregate({ clienteCreadoEventPublisher, clienteService })
     }
 
+     
 
-     //TRANSFORMO LOS STRING DE LA INTERFAZ COMMAND Y CREO LOS OBJETOS DE VALOR PARA PODER VALIDARLOS 
+     /**
+      * TRANSFORMO LOS STRING DE LA INTERFAZ COMMAND Y CREO LOS OBJETOS DE VALOR PARA PODER VALIDARLOS
+      * 
+      * It creates a value object from a command
+      * @param {Command} command - Command
+      * @returns A clienteDomainEntityInterface
+      */
      private createValueObject(command: Command): IClienteDomainEntityInterface {
 
         const nombreCliente = new FullnameValueObject(command.nombreCliente);
@@ -44,7 +51,13 @@ export class CreateClienteUseCase<
         return { nombreCliente, phoneCliente, emailCliente }
     }
 
-     //VALIDO LOS OBJETOS DE VALOR, SI HAY ERRORES LOS SETEO Y LOS MUESTRO
+
+     /**
+      * VALIDO LOS OBJETOS DE VALOR, SI HAY ERRORES LOS SETEO Y LOS MUESTRO
+      * 
+      * It validates the value object and if it has errors, it throws an exception
+      * @param {IClienteDomainEntityInterface} valueObject - IClienteDomainEntityInterface
+      */
      private validateValueObject(valueObject: IClienteDomainEntityInterface): void {
         const { nombreCliente, phoneCliente, emailCliente } = valueObject
 
@@ -63,7 +76,14 @@ export class CreateClienteUseCase<
             );
     }
 
-    //CREO LA ENTIDAD CLIENTE A PARTIR DE LOS OBJETOS DE VALOR VALIDADOS
+
+   /**
+    * CREO LA ENTIDAD CLIENTE A PARTIR DE LOS OBJETOS DE VALOR VALIDADOS
+    * 
+    * It creates a new ClienteDomainEntity object.
+    * @param {IClienteDomainEntityInterface} valueObject - IClienteDomainEntityInterface
+    * @returns A new instance of ClienteDomainEntity
+    */
     private createEntity(valueObject: IClienteDomainEntityInterface): ClienteDomainEntity {
         const { nombreCliente, phoneCliente, emailCliente } = valueObject
 
@@ -71,25 +91,48 @@ export class CreateClienteUseCase<
     }
 
 
-    // LUEGO DE CREADA LA ENTIDAD LE PASO EL CLIENTE A EL METODO "CREATECLIENTE" DE MI AGREGADO
+    /**
+     * 
+     * LUEGO DE CREADA LA ENTIDAD LE PASO EL CLIENTE A EL METODO "CREATECLIENTE" DE MI AGREGADO
+     * 
+     * It creates a cliente.
+     * @param {IClienteDomainEntityInterface} cliente - IClienteDomainEntityInterface
+     * @returns A Promise of ClienteDomainEntity or null
+     */
     private executeCompraAggregate(cliente: IClienteDomainEntityInterface): Promise<ClienteDomainEntity | null> {
         return this.compraAggregate.createCliente(cliente as ICreateClienteMethod)
     }
 
 
+   /**
+    * 
+    * CREO LOS OBJETOS DE VALOR LOS VALIDO Y GENERO
+    * MI ENTIDAD A PARTIR DE ELLOS
+    * 
+    * The function that executes the command.
+    * @param {Command} command - Command
+    * @returns The cliente entity
+    */
     async executeCommand(command: Command): Promise<ClienteDomainEntity | null> {
 
-        const ValueObject = this.createValueObject(command); //CREO LOS OBJETOS DE VALOR
-        this.validateValueObject(ValueObject); //VALIDO LOS OBJETOS DE VALOR
-        const cliente = this.createEntity(ValueObject); //CREO MI ENTIDAD A PARTIR DE LOS OBJETOS DE VALOR
+        const ValueObject = this.createValueObject(command); 
+        this.validateValueObject(ValueObject); 
+        const cliente = this.createEntity(ValueObject);
 
         return this.executeCompraAggregate(cliente);
     }
 
-    /*
-     ESTA FUNCION ASINCRONA DEVUELVE UNA PROMESA Y UTILIZA LA PALABRA CLAVE
+    
+
+   /**
+    * 
+    * ESTA FUNCION ASINCRONA DEVUELVE UNA PROMESA Y UTILIZA LA PALABRA CLAVE
     "await" PARA ESPERAR A QUE SE RESUELVA LA PROMESA
     ANTES DE CONTINUAR CON LA EJECUCION DE CODIGO
+    * 
+    * It executes the command and returns the response.
+    * @param {Command} [command] - The command object that was passed to the command handler.
+    * @returns The response of the command
     */
     async execute(command?: Command): Promise<Response> {
         const data = await this.executeCompraAggregate(command)

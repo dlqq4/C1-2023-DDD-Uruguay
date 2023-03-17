@@ -1,6 +1,8 @@
 import {isphoneOk} from'./phone-validation'
 
 
+/* A test that is going to pass because the function isphoneOk is going to accept the string
+       '0913664417' */
 describe('isphoneOk', () => {
     let validador: typeof isphoneOk;
   
@@ -25,7 +27,7 @@ describe('isphoneOk', () => {
        '0913664417' */
     it('debería ser verdadero', () => {
       // Arrange
-      const telefono = '091366441'; //CON ESTE NUMERO EL RESULTADO TIENE QUE SER TRUE
+      const telefono = '091364417'; 
       const expected = true;
   
       // Act

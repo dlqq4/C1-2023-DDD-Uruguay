@@ -28,11 +28,16 @@ export class ObtenerClienteUseCase<
         this.compraAggregate = new CompraAggregate({ clienteService, clienteConseguidoEventPublisher })
     }
 
-    /*
+    
+    /**
     ESTA FUNCION ASINCRONA DEVUELVE UNA PROMESA Y UTILIZA LA PALABRA CLAVE
     "await" PARA ESPERAR A QUE SE RESUELVA LA PROMESA
     ANTES DE CONTINUAR CON LA EJECUCION DE CODIGO
-   */
+     * 
+     * It executes a command and returns a response.
+     * @param {Command} [command] - The command to execute.
+     * @returns The response object is being returned.
+     */
     async execute(command?: Command): Promise<Response> {
         const data = await this.executeCommand(command);
 
@@ -40,6 +45,11 @@ export class ObtenerClienteUseCase<
     }
 
 
+    /**
+     * The function receives a command, and returns a promise of a ClienteDomainEntity or null
+     * @param {Command} command - Command - The command that is being executed.
+     * @returns A promise of a ClienteDomainEntity or null
+     */
     private async executeCommand(command: Command): Promise<ClienteDomainEntity | null> {
         return this.compraAggregate.obtenerCliente(command.idCliente)
     }
