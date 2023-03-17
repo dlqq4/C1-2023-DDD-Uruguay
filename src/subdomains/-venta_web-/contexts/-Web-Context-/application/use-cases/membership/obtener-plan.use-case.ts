@@ -1,7 +1,7 @@
 import { IUseCase, ValueObjectErrorHandler } from "src/libs";
 import { IObtenerPlanMethod } from "../../../domain/interfaces/commands/membership/plan/ObtenerPlan.command";
 import { IPlanConseguidoResponse } from "../../../domain/interfaces/responses/membership/planConseguido.response";
-import { IMembershipService, MembershipAggregate, PlanDomainEntity } from "../../../domain";
+import { IMembershipService, IPlanService, MembershipAggregate, PlanDomainEntity } from "../../../domain";
 import { PlanConseguidoEventPublisher } from "../../../domain/events/publishers/membership/plan/plan-conseguido.event-publisher";
 
 export class ObtenerPlanUseCase<
@@ -18,10 +18,10 @@ export class ObtenerPlanUseCase<
 
     //INYECTO EL SERVICIO Y EL EVENTO NECESARIO
     constructor(
-        private readonly membershipService: IMembershipService,
+        private readonly planService: IPlanService,
         private readonly planConseguidoEventPublisher: PlanConseguidoEventPublisher) {
         super();
-        this.membershipAggregate = new MembershipAggregate({ membershipService, planConseguidoEventPublisher })
+        this.membershipAggregate = new MembershipAggregate({ planService, planConseguidoEventPublisher })
     }
 
     /*

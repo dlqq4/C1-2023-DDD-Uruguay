@@ -180,7 +180,7 @@ export class MembershipAggregate implements IClienteService, IPlanService, IMemb
     
 
     async obtenerPlan(plane: string): Promise<PlanDomainEntity> {
-      if (this.membershipService && this.planConseguidoEventPublisher) {
+      if (this.planService && this.planConseguidoEventPublisher) {
         const result = await this.planService.obtenerPlan(plane);
         this.planConseguidoEventPublisher.response = result;
         this.planConseguidoEventPublisher.publish();

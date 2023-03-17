@@ -162,7 +162,7 @@ export class GlobalControllerEvent{
 
     //*********************PLAN***************************** */
 
-    @EventPattern('web-context.curso-conseguido')
+    @EventPattern('web-context.plan-conseguido')
     planConseguido(@Payload() data: any, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')
@@ -175,7 +175,7 @@ export class GlobalControllerEvent{
 
 
     @EventPattern('web-context.update-costo')
-    updatedCostopPlan(@Payload() data: any, @Ctx() context: KafkaContext){
+    updatedCostoPlan(@Payload() data: any, @Ctx() context: KafkaContext){
 
         console.log('--------------------------------------')
         console.log('Data: ', data)

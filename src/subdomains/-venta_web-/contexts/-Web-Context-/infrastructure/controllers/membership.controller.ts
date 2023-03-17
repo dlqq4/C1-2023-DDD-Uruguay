@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { CreateClienteCommand } from '../utils/commands/createCliente.command';
 import {  CreateCursoUseCase, ObtenerClienteUseCase, ObtenerCursoUseCase,  UpdateCursoCostoUseCase } from '../../application/use-cases/compra';
 import { IUpdatePhoneCommand } from '../utils/commands/updatePhone.command';
@@ -16,11 +16,13 @@ import { CreatePlanUseCase } from '../../application/use-cases/membership/create
 import { UpdateClientPhoneUseCase } from '../../application/use-cases/membership/update-client-phone.use-case';
 import { ICreateMembershipCommand } from '../utils/commands/membership/createMembership.command';
 import { CreateMembershipUseCase } from '../../application/use-cases/membership/create-membership.use-case';
-import { CreateMembershipPublisher, CreatePlanPublisher } from '../messaging/publisher/membership';
+import { CreateMembershipPublisher, CreatePlanPublisher, ObtenerPlanPublisher } from '../messaging/publisher/membership';
 import { CreateClientePublisher, ObtenerClientePublisher, UpdatePhonePublisher } from '../messaging/publisher';
 import { MembershipService } from '../persistence/services/membership.service';
 import { ClienteService } from '../persistence/services/cliente.service';
 import { PlanService } from '../persistence/services/plan.service';
+import { ObtenerPlanUseCase } from '../../application/use-cases/membership';
+import { IObtenerPlanCommand } from '../utils/commands/membership';
 
 @Controller('membership')
 export class MembershipController {
@@ -38,7 +40,8 @@ export class MembershipController {
         private readonly updatePhonePublisher: UpdatePhonePublisher ,
         private readonly clienteConseguidoPublisher: ObtenerClientePublisher ,
 
-        private readonly planCreadoPublisher: CreatePlanPublisher
+        private readonly planCreadoPublisher: CreatePlanPublisher,
+        private readonly planConseguidoPublisher: ObtenerPlanPublisher
 
         
     ) {}
@@ -86,11 +89,21 @@ export class MembershipController {
 
     //OBTENER
 
-    @Post('/obtener-cliente')
+    @Get('/obtener-cliente')
     async obtenerCliente(@Body() command: IObtenerClienteCommand ) {
         const useCase = new  ObtenerClienteUseCase(
             this.clienteService,
             this.clienteConseguidoPublisher,
+        );
+        return await useCase.execute(command);
+    }
+
+
+    @Get('/obtener-plan')
+    async obtenerplan(@Body() command: IObtenerPlanCommand ) {
+        const useCase = new  ObtenerPlanUseCase(
+            this.planService,
+            this.planConseguidoPublisher,
         );
         return await useCase.execute(command);
     }

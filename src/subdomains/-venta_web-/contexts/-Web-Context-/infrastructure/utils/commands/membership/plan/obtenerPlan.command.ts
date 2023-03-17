@@ -1,4 +1,5 @@
-import { IsUUID } from "class-validator/types/decorator/decorators";
+
+import { IsString, IsUUID } from "class-validator";
 import { IObtenerPlanMethod } from "src/subdomains/-venta_web-/contexts/-Web-Context-/domain/interfaces/commands/membership";
 
 
