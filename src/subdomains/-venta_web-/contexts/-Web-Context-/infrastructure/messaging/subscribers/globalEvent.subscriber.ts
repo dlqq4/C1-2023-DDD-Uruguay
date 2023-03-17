@@ -2,9 +2,15 @@ import { Controller } from "@nestjs/common";
 import { Ctx, EventPattern, KafkaContext, Payload } from "@nestjs/microservices";
 import { EventMySqlEntity } from "../../persistence/databases/mysql/entities/event.entity";
 import { CompraEntity } from "../../persistence/entities/compra.entity";
+import { EventService } from "../../persistence/services/event.service";
 
 @Controller()
 export class GlobalControllerEvent{
+
+
+
+
+    constructor(private readonly eventService: EventService){}
 
     /**
      * EventPattern se utiliza para definir un patrón de evento de Kafka
@@ -30,20 +36,36 @@ export class GlobalControllerEvent{
     //compraCreada(@Payload() data: EventMySqlEntity, @Ctx() context: KafkaContext){3
     compraCreada(@Payload() data: any, @Ctx() context: KafkaContext){
 
+
+        const event = new EventMySqlEntity();
+        event.data = JSON.stringify(data);
+        event.type = 'web-context.compra-creada';
+        event.createdAt = Date();
+
+        this.eventService.registerEvent(event);
+
+
         console.log('--------------------------------------')
         console.log('Data: ', data.data)
         console.log('--------------------------------------')
         console.log('Context: ', context)
         console.log('--------------------------------------')
 
-        //const compra: CompraEntity = JSON.parse(JSON.stringify(data.data))
-        
+       
 
     }
 
 
     @EventPattern('web-context.cliente-creado')
     clienteCreado(@Payload() data: any, @Ctx() context: KafkaContext){
+
+
+        const event = new EventMySqlEntity();
+        event.data = JSON.stringify(data);
+        event.type = 'web-context.cliente-creado';
+        event.createdAt = Date();
+
+        this.eventService.registerEvent(event);
 
         console.log('--------------------------------------')
         console.log('Data: ', data)
@@ -54,6 +76,13 @@ export class GlobalControllerEvent{
 
     @EventPattern('web-context.curso-creado')
     cursoCreado(@Payload() data: any, @Ctx() context: KafkaContext){
+
+        const event = new EventMySqlEntity();
+        event.data = JSON.stringify(data);
+        event.type = 'web-context.curso-creado';
+        event.createdAt = Date();
+
+        this.eventService.registerEvent(event);
 
         console.log('--------------------------------------')
         console.log('Data: ', data)
@@ -67,6 +96,14 @@ export class GlobalControllerEvent{
     @EventPattern('web-context.curso-conseguido')
     cursoConseguido(@Payload() data: any, @Ctx() context: KafkaContext){
 
+
+        const event = new EventMySqlEntity();
+        event.data = JSON.stringify(data);
+        event.type = 'web-context.curso-conseguido';
+        event.createdAt = Date();
+
+        this.eventService.registerEvent(event);
+
         console.log('--------------------------------------')
         console.log('Data: ', data)
         console.log('--------------------------------------')
@@ -76,6 +113,14 @@ export class GlobalControllerEvent{
 
     @EventPattern('web-context.update-costo')
     updatedCostoCurso(@Payload() data: any, @Ctx() context: KafkaContext){
+
+
+        const event = new EventMySqlEntity();
+        event.data = JSON.stringify(data);
+        event.type = 'web-context.update-costo';
+        event.createdAt = Date();
+
+        this.eventService.registerEvent(event);
 
         console.log('--------------------------------------')
         console.log('Data: ', data)
@@ -89,6 +134,14 @@ export class GlobalControllerEvent{
     @EventPattern('web-context.cupon-creado')
     cuponCreado(@Payload() data: any, @Ctx() context: KafkaContext){
 
+
+        const event = new EventMySqlEntity();
+        event.data = JSON.stringify(data);
+        event.type = 'web-context.cupon-creado';
+        event.createdAt = Date();
+
+        this.eventService.registerEvent(event);
+
         console.log('--------------------------------------')
         console.log('Data: ', data)
         console.log('--------------------------------------')
@@ -99,6 +152,14 @@ export class GlobalControllerEvent{
     @EventPattern('web-context.cupon-conseguido')
     cuponConseguido(@Payload() data: any, @Ctx() context: KafkaContext){
 
+
+        const event = new EventMySqlEntity();
+        event.data = JSON.stringify(data);
+        event.type = 'web-context.cupon-conseguido';
+        event.createdAt = Date();
+
+        this.eventService.registerEvent(event);
+
         console.log('--------------------------------------')
         console.log('Data: ', data)
         console.log('--------------------------------------')
@@ -108,6 +169,13 @@ export class GlobalControllerEvent{
 
     @EventPattern('web-context.update-porcentaje')
     updatedPorcentajeCupon(@Payload() data: any, @Ctx() context: KafkaContext){
+
+        const event = new EventMySqlEntity();
+        event.data = JSON.stringify(data);
+        event.type = 'web-context.update-porcentaje';
+        event.createdAt = Date();
+
+        this.eventService.registerEvent(event);
 
         console.log('--------------------------------------')
         console.log('Data: ', data)
@@ -121,6 +189,13 @@ export class GlobalControllerEvent{
     @EventPattern('web-context.update-phone')
     updatedClientePhone(@Payload() data: any, @Ctx() context: KafkaContext){
 
+        const event = new EventMySqlEntity();
+        event.data = JSON.stringify(data);
+        event.type = 'web-context.update-phone';
+        event.createdAt = Date();
+
+        this.eventService.registerEvent(event);
+
         console.log('--------------------------------------')
         console.log('Data: ', data)
         console.log('--------------------------------------')
@@ -130,6 +205,13 @@ export class GlobalControllerEvent{
 
     @EventPattern('web-context.cliente-conseguido')
     clienteConseguido(@Payload() data: any, @Ctx() context: KafkaContext){
+
+        const event = new EventMySqlEntity();
+        event.data = JSON.stringify(data);
+        event.type = 'web-context.cliente-conseguido';
+        event.createdAt = Date();
+
+        this.eventService.registerEvent(event);
 
         console.log('--------------------------------------')
         console.log('Data: ', data)
@@ -143,6 +225,14 @@ export class GlobalControllerEvent{
     @EventPattern('web-context.membresia-creada')
     membresiaCreada(@Payload() data: any, @Ctx() context: KafkaContext){
 
+
+        const event = new EventMySqlEntity();
+        event.data = JSON.stringify(data);
+        event.type = 'web-context.membresia-creada';
+        event.createdAt = Date();
+
+        this.eventService.registerEvent(event);
+
         console.log('--------------------------------------')
         console.log('Data: ', data)
         console.log('--------------------------------------')
@@ -152,6 +242,14 @@ export class GlobalControllerEvent{
 
     @EventPattern('web-context.plan-creado')
     planCreado(@Payload() data: any, @Ctx() context: KafkaContext){
+
+        const event = new EventMySqlEntity();
+        event.data = JSON.stringify(data);
+        event.type = 'web-context.plan-creado';
+        event.createdAt = Date();
+
+        this.eventService.registerEvent(event);
+
 
         console.log('--------------------------------------')
         console.log('Data: ', data)
@@ -165,6 +263,13 @@ export class GlobalControllerEvent{
     @EventPattern('web-context.plan-conseguido')
     planConseguido(@Payload() data: any, @Ctx() context: KafkaContext){
 
+        const event = new EventMySqlEntity();
+        event.data = JSON.stringify(data);
+        event.type = 'web-context.plan-conseguido';
+        event.createdAt = Date();
+
+        this.eventService.registerEvent(event);
+
         console.log('--------------------------------------')
         console.log('Data: ', data)
         console.log('--------------------------------------')
@@ -177,6 +282,15 @@ export class GlobalControllerEvent{
     @EventPattern('web-context.update-costo')
     updatedCostoPlan(@Payload() data: any, @Ctx() context: KafkaContext){
 
+
+        const event = new EventMySqlEntity();
+        event.data = JSON.stringify(data);
+        event.type = 'web-context.update-costo';
+        event.createdAt = Date();
+
+        this.eventService.registerEvent(event);
+
+
         console.log('--------------------------------------')
         console.log('Data: ', data)
         console.log('--------------------------------------')
@@ -186,6 +300,14 @@ export class GlobalControllerEvent{
 
     @EventPattern('web-context.update-nombre')
     updatedPlanNombre(@Payload() data: any, @Ctx() context: KafkaContext){
+
+
+        const event = new EventMySqlEntity();
+        event.data = JSON.stringify(data);
+        event.type = 'web-context.update-nombre';
+        event.createdAt = Date();
+
+        this.eventService.registerEvent(event);
 
         console.log('--------------------------------------')
         console.log('Data: ', data)

@@ -7,6 +7,9 @@ import { ClienteMySqlEntity, CursoMySqlEntity, PlanMySqlEntity, CuponMySqlEntity
 import { MembershipMySqlService } from "./services/membershipMySql.service";
 import { PlanMySqlService } from "./services/planMySql.service";
 import { CuponMySqlService } from "./services/cuponMySql.service";
+import { EventService } from "../../services/event.service";
+import { EventRepository } from "./repositories/event.repository";
+import { EventMySqlEntity } from "./entities/event.entity";
 
 
 
@@ -23,6 +26,7 @@ import { CuponMySqlService } from "./services/cuponMySql.service";
             CuponMySqlEntity,
             CompraMySqlEntity,
             MembershipMySqlEntity,
+            EventMySqlEntity
           
         ])
     ],
@@ -50,6 +54,9 @@ import { CuponMySqlService } from "./services/cuponMySql.service";
         PlanMySqlService,
         PlanRepository,
 
+        EventService,
+        EventRepository
+
     ],
     exports: [
       
@@ -72,6 +79,9 @@ import { CuponMySqlService } from "./services/cuponMySql.service";
 
         PlanMySqlService,
         PlanRepository,
+
+        EventService,
+        EventRepository
     ]
 })
 export class MySqlModule { }

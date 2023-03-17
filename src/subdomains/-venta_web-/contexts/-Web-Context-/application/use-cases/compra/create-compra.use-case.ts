@@ -1,3 +1,4 @@
+/* This class is a use case that creates a purchase */
 import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
 import { ClienteConseguidoEventPublisher, CompraAggregate, CompraCreadaEventPublisher, CompraDomainEntity, CuponConseguidoEventPublisher, CursoConseguidoEventPublisher, IClienteService, ICompraCreadaResponse, ICompraDomainEntityInterface, ICompraService, ICreateCompraMethod, ICuponService, ICursoService, UuidValueObject } from "../../../domain";
 import { ObtenerClienteUseCase } from "./obtener-cliente.use-case";
@@ -51,11 +52,23 @@ export class CreateCompraUseCase<
     }
 
     //METODO PARA EJECUTAR EL METODO DE MI AGREGADO
+    /**
+     * It receives a CompraDomainEntity, calls the createCompra function of the CompraAggregate, and
+     * returns the result
+     * @param {CompraDomainEntity} compra - CompraDomainEntity
+     * @returns The return is a Promise of CompraDomainEntity or null.
+     */
     private async executeCompraAggregate(compra: CompraDomainEntity): Promise<CompraDomainEntity | null> {
         return this.compraAggregate.createCompra(compra)
     }
 
 
+    /**
+     * It creates a new CompraDomainEntity object, which is a domain entity, and it does so by using
+     * the data returned by the three use cases that are called in the function
+     * @param {Command} command - Command
+     * @returns a promise of a CompraDomainEntity
+     */
     private async createEntity(command: Command): Promise<CompraDomainEntity> {
 
         const getCliente = new ObtenerClienteUseCase(this.clienteService, this.clienteConseguidoEventPublisher)
@@ -70,6 +83,12 @@ export class CreateCompraUseCase<
     }
 
 
+   /**
+    * It creates a new compraEntity and then executes the aggregate.
+    * @param {Command} command - Command - The command object that contains the data to be used to
+    * create the entity.
+    * @returns The return is a Promise of a CompraDomainEntity or null.
+    */
     async executeCommand(command: Command): Promise<CompraDomainEntity | null> {
         const compraEntity = await this.createEntity(command);
 

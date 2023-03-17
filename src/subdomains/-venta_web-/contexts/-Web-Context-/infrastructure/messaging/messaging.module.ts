@@ -43,7 +43,7 @@ import { CreateCuponPublisher } from './publisher/compra/cupon-creado.publisher'
             },
         ]),
     ],
-    controllers: [GlobalControllerEvent],
+  
     providers: [
        
         CreateCompraPublisher,

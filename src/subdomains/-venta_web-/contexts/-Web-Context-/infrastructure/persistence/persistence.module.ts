@@ -23,9 +23,9 @@ import { CuponService } from "./services/cupon.service";
         CuponService,
 
         MembershipService,    
-        PlanService
+        PlanService,
         
-       
+        EventService
 
        
     ],
@@ -37,6 +37,7 @@ import { CuponService } from "./services/cupon.service";
 
         MembershipService,    
         PlanService,
+        EventService
        
 
        

@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { TypeOrmOptionsFactory, TypeOrmModuleOptions } from "@nestjs/typeorm";
 import { ClienteMySqlEntity, CursoMySqlEntity, PlanMySqlEntity, CuponMySqlEntity, CompraMySqlEntity, MembershipMySqlEntity } from "../entities";
+import { EventMySqlEntity } from "../entities/event.entity";
 
 @Injectable()
 export class TypeOrmMySqlConfigService implements TypeOrmOptionsFactory {
@@ -22,7 +23,8 @@ export class TypeOrmMySqlConfigService implements TypeOrmOptionsFactory {
                 PlanMySqlEntity,
                 CuponMySqlEntity,
                 CompraMySqlEntity,
-                MembershipMySqlEntity  
+                MembershipMySqlEntity,
+                EventMySqlEntity 
             ],
             synchronize: true,
             logging: true
