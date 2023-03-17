@@ -84,8 +84,8 @@ export class UpdateCursoCostoUseCase<
 
     async executeCommand(command: Command): Promise<CursoDomainEntity | null> {
 
-        //const ValueObject = this.createValueObject(command); //CREO LOS OBJETOS DE VALOR
-        //this.validateValueObject(ValueObject); //VALIDO LOS OBJETOS DE VALOR
+        const ValueObject = this.createValueObject(command); 
+        this.validateValueObject(ValueObject); 
         const cliente =  await this.createEntity({
             idCurso: command.idCurso.valueOf(),
             costoCurso: command.costoCurso.valueOf()

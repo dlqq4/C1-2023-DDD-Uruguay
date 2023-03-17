@@ -12,11 +12,11 @@ export class TypeOrmMySqlConfigService implements TypeOrmOptionsFactory {
     createTypeOrmOptions(): TypeOrmModuleOptions {
         return {
             type: 'mysql',
-            host: 'localhost',
-            port: 3306,
-            username: 'root',
-            password:  '12345',
-            database:  'ddd_bf_sofka',
+            host: this.configService.get<string>('DB_HOST'),
+            port: this.configService.get<number>('DB_PORT'),
+            username: this.configService.get<string>('DB_USER'),
+            password: this.configService.get<string>('DB_PASSWORD'),
+            database: this.configService.get<string>('DB_NAME'),
             entities: [
                 ClienteMySqlEntity,
                 CursoMySqlEntity,

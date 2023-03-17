@@ -10,7 +10,7 @@ export class CostoValueObject extends ValueObjectBase<number>{
     
     
     validateData(): void {
-        this.valorPositivo();
+       // this.valorPositivo();
        
     }
 
