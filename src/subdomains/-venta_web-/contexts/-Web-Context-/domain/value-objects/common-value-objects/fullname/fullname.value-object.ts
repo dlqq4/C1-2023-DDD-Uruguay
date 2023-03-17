@@ -1,7 +1,5 @@
-import { ValueObjectBase } from "src/libs";
-import { isFullNameOK } from "src/libs/validations/fullname-validation";
-import { largoMaximo } from "src/libs/validations/largo-maximo-validation";
-import { largoMinimo } from "src/libs/validations/largo-minimo-validation";
+import { ValueObjectBase, isFullNameOK, largoMaximo, largoMinimo } from "../../../../../../../../libs";
+
 
 export class FullnameValueObject extends ValueObjectBase<string> {
 
@@ -11,9 +9,8 @@ export class FullnameValueObject extends ValueObjectBase<string> {
 
 
     validateData(): void {
-        this.validatFullNameLargo(),
-        this.validatFullNameStructura();
-        
+        this.validatFullNameLargo()
+    
     }
 
 
@@ -37,7 +34,7 @@ export class FullnameValueObject extends ValueObjectBase<string> {
         }
 
         //Compruebo que el largo no sea menor a 7 caracteres
-        if(largoMinimo(this.value, 7)){
+        if(largoMinimo(this.value, 1)){
             const error = {field: 'Fullname', message: 'El nombre proporcionado es demasiado corto!'};
 
             this.setError(error);
@@ -46,17 +43,7 @@ export class FullnameValueObject extends ValueObjectBase<string> {
     }
 
 
-    private validatFullNameStructura() : void {
-        
-        //Valido si la estructura proporcionada es correcta
-        if (this.value && isFullNameOK(this.value)) {
-            const error = {field: 'Fullname', message: 'No es un nombre valido!'};
 
-            this.setError(error);
-        }
- 
-
-    }
 
 
 }
