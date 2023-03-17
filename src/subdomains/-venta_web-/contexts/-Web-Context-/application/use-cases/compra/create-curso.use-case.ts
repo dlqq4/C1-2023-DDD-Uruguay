@@ -82,9 +82,9 @@ async executeCommand(command: Command): Promise<CursoDomainEntity | null> {
 
     const ValueObject = this.createValueObject(command); //CREO LOS OBJETOS DE VALOR
     this.validateValueObject(ValueObject); //VALIDO LOS OBJETOS DE VALOR
-    const cliente = this.createEntity(ValueObject); //CREO MI ENTIDAD A PARTIR DE LOS OBJETOS DE VALOR
+    const curso = this.createEntity(ValueObject); //CREO MI ENTIDAD A PARTIR DE LOS OBJETOS DE VALOR
 
-    return this.executeCompraAggregate(cliente);
+    return this.executeCompraAggregate(curso);
 }
 
 }

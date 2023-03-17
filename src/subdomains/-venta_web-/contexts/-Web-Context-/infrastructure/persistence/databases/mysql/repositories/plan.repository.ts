@@ -41,15 +41,5 @@ export class PlanRepository implements IRepository<PlanMySqlEntity>{
     }
 
 
-    
-
-    /*
-    async delete(clientId: string): Promise<boolean> {
-        const client = await this.repository.findOneBy({ clientId, deletedAt: undefined });
-        if (!client) throw new BadRequestException(`Client with id: ${clientId} not found`)
-
-        return true
-    }
-    */
 
 }

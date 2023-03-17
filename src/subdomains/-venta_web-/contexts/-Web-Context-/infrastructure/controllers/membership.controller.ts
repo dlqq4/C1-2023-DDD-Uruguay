@@ -1,14 +1,6 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { CreateClienteCommand } from '../utils/commands/createCliente.command';
 import {  CreateCursoUseCase, ObtenerClienteUseCase, ObtenerCursoUseCase,  UpdateCursoCostoUseCase } from '../../application/use-cases/compra';
-import { ClienteCreadoEventPublisher } from '../../domain/events/publishers/compra/cliente-creado.event-publisher';
-import { ICompraService } from '../../domain/services/compra.service';
-import { ICreateCompraCommand } from '../utils/commands/compra/createCompra.command';
-import { CompraCreadaEventPublisher } from '../../domain/events/publishers/compra/compra-creada.event-publisher';
-import { IClienteService } from '../../domain/services/cliente.service';
-import { ICursoService } from '../../domain/services/curso.service';
-import { CursoCreadoEventPublisher } from '../../domain/events/publishers/compra/curso-creado.event-publisher';
-import { ICreateCursoCommand } from '../utils/commands/compra/createCurso.command';
 import { IUpdatePhoneCommand } from '../utils/commands/updatePhone.command';
 import { UpdatePhoneEventPublisher } from '../../domain/events/publishers/compra/cliente/update-phone.event-publisher';
 import { IUpdateCostoCommand } from '../utils/commands/compra/curso/updateCosto.command';

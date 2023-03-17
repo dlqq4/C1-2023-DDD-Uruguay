@@ -116,7 +116,7 @@ export class MembershipAggregate implements IClienteService, IPlanService, IMemb
     }
 
     async createPlan(plan: ICreatePlanMethod): Promise<PlanDomainEntity> {
-        if (this.membershipService && this.planCreadoEventPublisher) {
+        if (this.planService && this.planCreadoEventPublisher) {
             const result = await this.planService.createPlan(plan);
             this.planCreadoEventPublisher.response = result;
             this.planCreadoEventPublisher.publish();

@@ -1,7 +1,5 @@
 
 import { IUseCase, ValueObjectErrorHandler, ValueObjectException } from "src/libs";
-import { ICreateClienteMethod } from "../../../domain/interfaces/commands";
-import { IClienteCreadoResponse } from "../../../domain/interfaces/responses";
 import { ClienteCreadoEventPublisher, ClienteDomainEntity, CostoValueObject, DateValueObject, IClienteDomainEntityInterface, IClienteService, IMembershipService, IPlanDomainEntityInterface, IPlanService, MembershipAggregate, PlanCreadoEventPublisher, PlanDomainEntity } from "../../../domain";
 import { FullnameValueObject } from "../../../domain/value-objects/common-value-objects/fullname";
 import { PhoneValueObject } from "../../../domain/value-objects/cliente/phone/phone.value-object";
@@ -70,7 +68,7 @@ export class CreatePlanUseCase<
         if (dateFinPlan instanceof DateValueObject && dateFinPlan.hasErrors())
             this.setErrors(dateFinPlan.getErrors());
 
-        if (costoPlan instanceof EmailValueObject && costoPlan.hasErrors())
+        if (costoPlan instanceof CostoValueObject && costoPlan.hasErrors())
             this.setErrors(costoPlan.getErrors());
 
         if (this.hasErrors() === true)
